@@ -1,5 +1,6 @@
-<%@ page import="connection.java";
-import="java.sql.*"%>
+<HTML><BODY>
+<%@ page import="connection.java";%>
+<%import="java.sql.*"%>
 <%
 Connection conn = null;
 if(request.getParameter("Submit") != null) {	//extracting logininfo
@@ -37,6 +38,6 @@ if(request.getParameter("Submit") != null) {	//extracting logininfo
         }
     }
 }
-else{ %>
+else{ %></HTML></BODY>
 <%@ include file="LoginModule.html"%>
 <%}%>
