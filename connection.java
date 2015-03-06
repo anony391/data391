@@ -1,7 +1,10 @@
+/*This code is for making the connection to oracle
+*/
 import java.sql.*;
 
+
 class connection{
-  public Connection  mkconnection(){
+  public Connection  mkconn(){
     Connection conn = null;
     String driverName = "oracle.jdbc.driver.OracleDriver";
     String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
