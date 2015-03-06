@@ -38,6 +38,9 @@ if(request.getParameter("Submit") != null) {	//extracting logininfo
         }
     }
 }
-else{ %></HTML></BODY>
+else{ %>
 <%@ include file="LoginModule.html"%>
 <%}%>
+
+</HTML>
+</BODY>
