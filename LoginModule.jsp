@@ -1,13 +1,14 @@
 <HTML><BODY>
-<%@ page import="connection.java";%>
-<%import="java.sql.*"%>
+<%@ page import="connectionmaker.*"%>
+<%@ page import="java.sql.*"%>
 <%
 Connection conn = null;
 if(request.getParameter("Submit") != null) {	//extracting logininfo
-    String username = (request.getParameter("USERID").trim();
-    String password = (request.getParameter("PASSWD").trim();
+    String username = (request.getParameter("USERID").trim());
+    String password = (request.getParameter("PASSWD").trim());
     try{
-        conn = mkconn(); //creates a connection with database
+	connmaker cn = new connmaker();
+        conn = cn.mkconn(); 	//creates a connection with database
     }
     catch(Exception ex){
         out.println("<hr>"+ ex.getMessage() + "<hr>");
@@ -15,14 +16,16 @@ if(request.getParameter("Submit") != null) {	//extracting logininfo
 
     Statement stmt = null;
     ResultSet rset = null;
-    String sqlstring = "'select password from users where user_name = "+username+"'";
+    String sqlstring = "SELECT password FROM users WHERE user_name = '"+username+"'";
     try{
 
         stmt = conn.createStatement();
-        reset = stmt.executeQuery(sqlstring);
+        rset = stmt.executeQuery(sqlstring);
     }
     catch(Exception ex){
         out.println("<hr>"+ ex.getMessage() +"<hr>");
+	out.println(sqlstring);
+	conn.close();
     }
 
     String dbpassword = "";  	//checking if results includes logininfo
@@ -30,10 +33,12 @@ if(request.getParameter("Submit") != null) {	//extracting logininfo
         dbpassword = rset.getString(1).trim();
         if(password.equals(dbpassword)){
             out.println("login successful"); 	//need to change this to going to nextpage
+	    conn.close();
             break;
         }
         else{
             out.println("user/password wrong");
+	    conn.close();
             break;
         }
     }
