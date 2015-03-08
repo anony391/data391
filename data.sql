@@ -20,3 +20,4 @@ INSERT INTO family_doctor (doctor_id, patient_id) VALUES (900000001,000000003);
 INSERT INTO family_doctor (doctor_id, patient_id) VALUES (900000001,000000004);
 INSERT INTO family_doctor (doctor_id, patient_id) VALUES (900000002,000000005);
 
+
