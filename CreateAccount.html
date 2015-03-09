@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>User Management</title>
+    <link rel="stylesheet" type="text/css" href="RadiologyDatabase.css">
+</head>
+
+<body>
+<FORM NAME="UserManagement" ACTION="UserManagement.jsp" METHOD="post" autocomplete="off">
+
+    <h2>Create a new account</h2>
+    <TABLE>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Username:</B></TD>
+            <TD><INPUT TYPE="text" NAME="USERID"><BR></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Password:</B></TD>
+            <TD><INPUT TYPE="password" NAME="PASSWD"></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Confirm Password:</B></TD>
+            <TD><INPUT TYPE="password" NAME="PASSWDCNFRM"></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Class (d,p,r):</B></TD>
+            <TD><INPUT TYPE="text" NAME="CLASS"></TD>
+        </TR>
+    </TABLE>
+
+    <INPUT TYPE="submit" NAME="Submit" VALUE="SUBMIT">
+</FORM>
+
+
+</body>
+</html>
