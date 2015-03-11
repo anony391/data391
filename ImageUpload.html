@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Upload Radiology Record</title>
+    <link rel="stylesheet" type="text/css" href="RadiologyDatabase.css">
+</head>
+
+<body>
+<FORM id= "Upload-form" NAME="UploadForm" enctype="multipart/form-data" ACTION="UploadModule.jsp" METHOD="post" autocomplete="off">
+    <TABLE>
+        <TR VALIGN=TOP ALIGN=LEFT>
+            <TD><B><I>Person Fullname:</I></B></TD>
+            <TD><INPUT TYPE="text" NAME="PersonName"><BR></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=LEFT>
+            <TD><B><I>Image Source:</I></B></TD>
+            <TD><INPUT TYPE="file" SIZE="30" NAME="ImageSrc"></TD>
+        </TR>
+    </TABLE>
+
+    <INPUT TYPE="submit" NAME="Submit" VALUE="Upload">
+</FORM>
+
+
+</body>
+</html>
+
+
