@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>User Management</title>
+    <link rel="stylesheet" type="text/css" href="RadiologyDatabase.css">
+</head>
+
+<body>
+<FORM NAME="UserManagement" ACTION="UserManagement.jsp" METHOD="post" autocomplete="off">
+
+    <h2>Create a new account</h2>
+    <TABLE>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Username:</B></TD>
+            <TD><INPUT TYPE="text" NAME="USERID"><BR></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Password:</B></TD>
+            <TD><INPUT TYPE="password" NAME="PASSWD"></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Confirm Password:</B></TD>
+            <TD><INPUT TYPE="password" NAME="PASSWDCNFRM"></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>First Name:</B></TD>
+            <TD><INPUT TYPE="text" NAME="FIRSTNAME"><BR></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Last Name:</B></TD>
+            <TD><INPUT TYPE="text" NAME="LASTNAME"><BR></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Address:</B></TD>
+            <TD><INPUT TYPE="text" NAME="ADDRESS"><BR></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Email:</B></TD>
+            <TD><INPUT TYPE="text" NAME="EMAIL"><BR></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Phone:</B></TD>
+            <TD><INPUT TYPE="text" NAME="PHONE"><BR></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Class(a,p,r,d):</B></TD>
+            <TD><INPUT TYPE="text" NAME="CLASS"></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Family Doctor:</B></TD>
+            <TD><INPUT TYPE="text" NAME="DOCTOR"><BR></TD>
+        </TR>
+    </TABLE>
+
+    <INPUT TYPE="hidden" NAME="Create" VALUE="createAccount">
+    <INPUT TYPE="submit" NAME="Submit" VALUE="SUBMIT">
+</FORM>
+
+
+</body>
+</html>
