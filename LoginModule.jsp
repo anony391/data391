@@ -1,50 +1,46 @@
 <HTML><BODY>
 <%@ page import="connectionmaker.*"%>
 <%@ page import="java.sql.*"%>
+<%@ page import="sqlcontrol.*"%>
+
 <%
 Connection conn = null;
 if(request.getParameter("Submit") != null) {	//extracting logininfo
     String username = (request.getParameter("USERID").trim());
     String password = (request.getParameter("PASSWD").trim());
+    connmaker cn = null;
+    sqlcontroller scontroller= null;
+    Boolean logbool = null;
+
     try{
-	connmaker cn = new connmaker();
-        conn = cn.mkconn(); 	//creates a connection with database
+	cn = new connmaker();
+        conn = cn.mkconn(); 	//creates a connection with database by using connectionmaker class
     }
     catch(Exception ex){
         out.println("<hr>"+ ex.getMessage() + "<hr>");
     }
 
-    Statement stmt = null;
-    ResultSet rset = null;
-    String sqlstring = "SELECT password FROM users WHERE user_name = '"+username+"'";
     try{
-
-        stmt = conn.createStatement();
-        rset = stmt.executeQuery(sqlstring);
+      scontroller = new sqlcontroller();
+      logbool = scontroller.logincheck(username, password, conn);	//this will try to retrieve user data info to see if login is okay
     }
     catch(Exception ex){
-        out.println("<hr>"+ ex.getMessage() +"<hr>");
-	out.println(sqlstring);
-	conn.close();
+       out.println("<hr>" + ex.getMessage() + "<hr>");
+       conn.close();
     }
 
-    String dbpassword = "";  	//checking if results includes logininfo
-    while(rset != null && rset.next()){
-        dbpassword = rset.getString(1).trim();
-        if(password.equals(dbpassword)){
-            out.println("login successful"); 	//need to change this to going to nextpage
-	    conn.close();
-            break;
-        }
-        else{
-            out.println("user/password wrong");
-	    conn.close();
-            break;
-        }
+    if(logbool == true){		
+      out.println("login successful");	//if user exists and password works this will be run.
+      conn.close();
+    }
+    else{
+      out.println("wrong password");
+      conn.close();
     }
 }
+
 else{ %>
-<%@ include file="LoginModule.html"%>
+  <%@ include file="LoginModule.html"%>
 <%}%>
 
 </HTML>

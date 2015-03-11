@@ -1,10 +1,11 @@
-/*This code is for making the connection to oracle
+/*This code is for making the connection to oracle and sending and retrieving information about login data
 */
 package connectionmaker;
 import java.sql.*;
 import java.io.*;
+import java.io.IOException;
 
-
+/*This method creates a connection to connect to oracle*/
 public class connmaker{
   String USER = ""; //Change these parameters when testing to your oracle password :)
   String PASSWORD = "";
@@ -22,5 +23,12 @@ public class connmaker{
     catch(Exception ex){
       return null;
     }
-}}		
+  }
+
+}
+
+
+
+
+
 
