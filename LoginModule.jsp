@@ -26,13 +26,16 @@ if(request.getParameter("Submit") != null) {	//extracting logininfo
     }
     catch(Exception ex){
        out.println("<hr>" + ex.getMessage() + "<hr>");
+       conn.close();
     }
 
     if(logbool == true){		
       out.println("login successful");	//if user exists and password works this will be run.
+      conn.close();
     }
     else{
       out.println("wrong password");
+      conn.close();
     }
 }
 

@@ -15,19 +15,16 @@ public class sqlcontroller{
       rset = stmt.executeQuery(sqlstring);
     }
     catch(Exception ex){
-      conn.close();
       throw new IOException("Cannot retrieve information from database server.");
 
     }
     String dbpassword = "";     //checking if results includes logininfo
     while(rset != null && rset.next()){
         dbpassword = rset.getString(1).trim();
-        if(password.equals(dbpassword)){        //need to change this to going to nextpage
-            conn.close();
+        if(password.equals(dbpassword)){        //need to change this to going to nextpag
             return true;
         }
         else{
-            conn.close();
             return false;
         }
     }
