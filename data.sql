@@ -14,10 +14,10 @@ INSERT INTO users (user_name, password, class, person_id, date_registered) VALUE
 INSERT INTO users (user_name, password, class, person_id, date_registered) VALUES ('WinstonDaniels54','WinstonD54','d',900000001,to_date('1998-02-28', 'yyyy-mm-dd'));
 INSERT INTO users (user_name, password, class, person_id, date_registered) VALUES ('EuniceMiles73','EuniceM73','d',900000002,to_date('1996-05-12', 'yyyy-mm-dd'));
 
-INSERT INTO family_doctor (doctor_id, patient_id) VALUES (000000005,000000001);
-INSERT INTO family_doctor (doctor_id, patient_id) VALUES (000000005,000000002);
-INSERT INTO family_doctor (doctor_id, patient_id) VALUES (000000005,000000003);
-INSERT INTO family_doctor (doctor_id, patient_id) VALUES (000000005,000000004);
-INSERT INTO family_doctor (doctor_id, patient_id) VALUES (000000006,000000005);
+INSERT INTO family_doctor (doctor_id, patient_id) VALUES (900000001,000000001);
+INSERT INTO family_doctor (doctor_id, patient_id) VALUES (900000001,000000002);
+INSERT INTO family_doctor (doctor_id, patient_id) VALUES (900000001,000000003);
+INSERT INTO family_doctor (doctor_id, patient_id) VALUES (900000001,000000004);
+INSERT INTO family_doctor (doctor_id, patient_id) VALUES (900000002,000000005);
 
 
