@@ -1,26 +1,25 @@
-CTYPE html>
+<!DOCTYPE html>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>LoginModule</title>
+    <title>Upload Radiology Record</title>
     <link rel="stylesheet" type="text/css" href="RadiologyDatabase.css">
 </head>
 
 <body>
-<!--Code from sample login -->
-<FORM id= "login-form" NAME="LoginForm" ACTION="LoginModule.jsp" METHOD="post" autocomplete="off">
+<FORM id= "Upload-form" NAME="UploadForm" enctype="multipart/form-data" ACTION="UploadModule.jsp" METHOD="post" autocomplete="off">
     <TABLE>
         <TR VALIGN=TOP ALIGN=LEFT>
-            <TD><B><I>Username:</I></B></TD>
-            <TD><INPUT TYPE="text" NAME="USERID"><BR></TD>
+            <TD><B><I>Person Fullname:</I></B></TD>
+            <TD><INPUT TYPE="text" NAME="PersonName"><BR></TD>
         </TR>
         <TR VALIGN=TOP ALIGN=LEFT>
-            <TD><B><I>Password:</I></B></TD>
-            <TD><INPUT TYPE="password" NAME="PASSWD"></TD>
+            <TD><B><I>Image Source:</I></B></TD>
+            <TD><INPUT TYPE="file" SIZE="30" NAME="ImageSrc"></TD>
         </TR>
     </TABLE>
 
-    <INPUT TYPE="submit" NAME="Submit" VALUE="LOGIN">
+    <INPUT TYPE="submit" NAME="Submit" VALUE="Upload">
 </FORM>
 
 
