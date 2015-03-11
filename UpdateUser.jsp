@@ -28,8 +28,8 @@ if(request.getParameter("Submit") != null) {	//extracting person id
 	conn.close();
     }
 
-    if (rset != null){
-	    /*Get user info*/
+    while (rset != null && rset.next()){
+	/*Get user info*/
         String username = rset.getString("user_name").trim();
         String firstName = rset.getString("first_name").trim();
         String lastName = rset.getString("last_name").trim();
@@ -51,7 +51,7 @@ if(request.getParameter("Submit") != null) {	//extracting person id
         out.println("Phone: <input type=text name=PHONE value='"+phone+"'><br>");
         out.println("Class(a,p,r,d): <input type=text name=CLASS value='"+classType+"'><br>");
         out.println("Family Doctor ID: <input type=text name=DOCTOR value='"+doctor+"'><br>");
-        out.println("<INPUT TYPE="hidden" NAME="Create" VALUE="createAccount">");
+        out.println("<input type=hidden name=Create value=createAccount>");
         out.println("<input type=submit name=Submit value=Submit>");
         out.println("</form>");
 
