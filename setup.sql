@@ -9,6 +9,7 @@ DROP TABLE pacs_images;
 DROP TABLE radiology_record;
 DROP TABLE users;
 DROP TABLE persons;
+DROP SEQUENCE personID_sequence;
 
 /*
  *  To store the personal information

@@ -36,7 +36,7 @@ if(request.getParameter("Submit") != null) {	//extracting person id
         String address = rset.getString("address").trim();
         String email = rset.getString("email").trim();
         String phone = rset.getString("phone").trim();
-        char class = rset.getString("class").trim();
+        String classType = rset.getString("class").trim();
         String doctor = rset.getString("doctor_id").trim();
 
         /*Print out update form with filled in fields*/
@@ -49,7 +49,7 @@ if(request.getParameter("Submit") != null) {	//extracting person id
         out.println("Address: <input type=text name=ADDRESS value='"+address+"'><br>");
         out.println("Email: <input type=text name=EMAIL value='"+email+"'><br>");
         out.println("Phone: <input type=text name=PHONE value='"+phone+"'><br>");
-        out.println("Class(a,p,r,d): <input type=text name=CLASS value='"+class+"'><br>");
+        out.println("Class(a,p,r,d): <input type=text name=CLASS value='"+classType+"'><br>");
         out.println("Family Doctor ID: <input type=text name=DOCTOR value='"+doctor+"'><br>");
         out.println("<INPUT TYPE="hidden" NAME="Create" VALUE="createAccount">");
         out.println("<input type=submit name=Submit value=Submit>");
