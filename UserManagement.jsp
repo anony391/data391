@@ -42,18 +42,20 @@ if(request.getParameter("Submit") != null) {	//extracting updateuser info
     ResultSet rset = null;
 
     String check = request.getParameter("Update");
+out.println("Value: "+check+"");
     /*Executes update statements if from UpdateUser.jsp*/
     if ((check != null) && check.equals("updateAccount")) {
+	out.println("<p>Successfully entered update section<p>");
 	String person_id = (String) session.getAttribute("personID");
 	
         String userUpdateSql = "UPDATE users SET user_name='"+username+"'," +
                         "password='"+password+"', class='"+classType+"'" +
-                        "WHERE person_id = '"+person_id+"')";
+                        " WHERE person_id='"+person_id+"')";
         String personUpdateSql = "UPDATE persons SET first_name='"+firstName+"'," +
                         "last_name='"+lastName+"',address='"+address+"'," +
-                        "email='"+email+"',phone='"+phone+"' WHERE person_id = '"+person_id+"')";
+                        "email='"+email+"',phone='"+phone+"' WHERE person_id='"+person_id+"')";
         String doctorUpdateSql = "UPDATE family_doctor SET doctor_id='"+doctor+"'" +
-                            "WHERE patient_id='"+person_id+"')";
+                            " WHERE patient_id='"+person_id+"')";
 
         try{
             stmt = conn.createStatement();

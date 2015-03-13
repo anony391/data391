@@ -51,7 +51,7 @@ if(request.getParameter("Submit") != null) {	//extracting person id
         out.println("Phone: <input type=text name=PHONE value='"+phone+"'><br>");
         out.println("Class(a,p,r,d): <input type=text name=CLASS value='"+classType+"'><br>");
         out.println("Family Doctor ID: <input type=text name=DOCTOR value='"+doctor+"'><br>");
-        out.println("<input type=hidden name=Create value=createAccount>");
+        out.println("<input type=hidden name=Update value=updateAccount>");
         out.println("<input type=submit name=Submit value=Submit>");
         out.println("</form>");
 
