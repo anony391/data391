@@ -1,7 +1,7 @@
 <HTML><BODY>
 <%@ page import="connectionmaker.*"%>
 <%@ page import="java.sql.*"%>
-<%@ page import="java.util.Date*"%>
+<%@ page import="java.util.Date"%>
 <%@ page import="java.text.*"%>
 <%@ page import="sqlcontrol.*"%>
 <%
@@ -13,7 +13,7 @@ if(request.getParameter("Submit") != null) {	//extracting updateuser info
     sqlcontroller sqlContrl = new sqlcontroller();
 
     /*Check if both passwords match, otherwise return to UpdateUserInfo page*/
-    if (password != password2) {
+    if (!(password.equals(password2))) {
         out.println("Passwords do not match. Please try again.");
 %> <%@ include file="UserManageMenu.html"%>
 <% }

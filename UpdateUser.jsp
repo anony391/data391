@@ -16,7 +16,7 @@ if(request.getParameter("Submit") != null) {	//extracting person id
 
     Statement stmt = null;
     ResultSet rset = null;
-    String sqlstring = "SELECT * FROM users u,persons p,family_doctor d WHERE p.person_id = u.person_id AND p.person_id = d.patient_id";
+    String sqlstring = "SELECT * FROM users u,persons p,family_doctor d WHERE p.person_id = u.person_id AND p.person_id = d.patient_id AND p.person_id='"+person_id+"'";
     try{
 
         stmt = conn.createStatement();
@@ -28,7 +28,7 @@ if(request.getParameter("Submit") != null) {	//extracting person id
 	conn.close();
     }
 
-    while (rset != null && rset.next()){
+    if (rset != null && rset.next()){
 	/*Get user info*/
         String username = rset.getString("user_name").trim();
         String firstName = rset.getString("first_name").trim();
@@ -54,7 +54,6 @@ if(request.getParameter("Submit") != null) {	//extracting person id
         out.println("<input type=hidden name=Create value=createAccount>");
         out.println("<input type=submit name=Submit value=Submit>");
         out.println("</form>");
-
 
     }
 } else { %>
