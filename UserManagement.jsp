@@ -42,26 +42,28 @@ if(request.getParameter("Submit") != null) {	//extracting updateuser info
     ResultSet rset = null;
 
     String check = request.getParameter("Update");
-out.println("Value: "+check+"");
+
     /*Executes update statements if from UpdateUser.jsp*/
     if ((check != null) && check.equals("updateAccount")) {
-	out.println("<p>Successfully entered update section<p>");
+
 	String person_id = (String) session.getAttribute("personID");
 	
         String userUpdateSql = "UPDATE users SET user_name='"+username+"'," +
                         "password='"+password+"', class='"+classType+"'" +
-                        " WHERE person_id='"+person_id+"')";
+                        " WHERE person_id='"+person_id+"'";
         String personUpdateSql = "UPDATE persons SET first_name='"+firstName+"'," +
                         "last_name='"+lastName+"',address='"+address+"'," +
-                        "email='"+email+"',phone='"+phone+"' WHERE person_id='"+person_id+"')";
+                        "email='"+email+"',phone='"+phone+"'" + 
+			"WHERE person_id='"+person_id+"'";
         String doctorUpdateSql = "UPDATE family_doctor SET doctor_id='"+doctor+"'" +
-                            " WHERE patient_id='"+person_id+"')";
+                            " WHERE patient_id='"+person_id+"'";
 
         try{
             stmt = conn.createStatement();
+            stmt.executeUpdate(doctorUpdateSql);
             stmt.executeUpdate(userUpdateSql);
             stmt.executeUpdate(personUpdateSql);
-            stmt.executeUpdate(doctorUpdateSql);
+	
         }
         catch(Exception ex){
             out.println("<hr>"+ ex.getMessage() +"<hr>");
@@ -69,15 +71,16 @@ out.println("Value: "+check+"");
         }
         conn.close();
         out.println("Update was successful.");
+
     /*Execute insert statements if from CreateAccount.html*/
     } else if (request.getParameter("Create").equals("createAccount")) {
-	out.println("<p>Successfully entered create account section<p>");
+
         //Create a new person_id
 	String person_id = sqlContrl.generateNextID(conn);
 	if (person_id.equals("error")) {
 		out.println("Could not generate new id.");
 	}
-	out.println("person_id: "+person_id+"");
+
         /*Create and format registration date for user table*/
         Date currentDay = new Date();
         SimpleDateFormat ft =
