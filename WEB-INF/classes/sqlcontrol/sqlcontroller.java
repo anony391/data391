@@ -47,7 +47,12 @@ public class sqlcontroller{
 		} catch(Exception ex) {
 		    throw new IOException("Could not get next value in sequence.");
 		
-		}	
-		return rset.getString("NEXTVAL");
+		}
+		if ((rset != null) && rset.next()){
+			return rset.getString("NEXTVAL");
+		} else {
+			return "error";
+		}
+		
 	}
 }
