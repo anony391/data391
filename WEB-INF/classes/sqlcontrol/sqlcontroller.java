@@ -55,4 +55,25 @@ public class sqlcontroller{
 		}
 		
 	}
+	
+	public String classOfUser(Connection conn,String person_id) throws IOException, SQLException {
+		  
+		Statement stmt = null;
+	    ResultSet rset = null;
+		String sqlString = "SELECT class FROM users WHERE person_id = '"+person_id+"'";
+		try{
+		    stmt = conn.createStatement();
+		    rset = stmt.executeQuery(sqlString);
+		} catch(Exception ex) {
+		    throw new IOException("Could not get next value in sequence.");
+		
+		}
+		if ((rset != null) && rset.next()){
+			String classString = rset.getString("class");
+			return classString;
+		} else {
+			return "error";
+		}
+		
+	}
 }
