@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Create New Radiology Record</title>
+    <link rel="stylesheet" type="text/css" href="RadiologyDatabase.css">
+</head>
+
+<body>
+<FORM NAME="RadiologyRecord" ACTION="Create-Radiology-Record.jsp" METHOD="post" autocomplete="off">
+
+    <h2>Create new radiology record</h2>
+    <TABLE>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>patient ID number:</B></TD>
+            <TD><INPUT TYPE="text" NAME="PATIENTID"><BR></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Doctor ID number:</B></TD>
+            <TD><INPUT TYPE="text" NAME="DOCTORID"></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Radiologist ID number:</B></TD>
+            <TD><INPUT TYPE="text" NAME="RADIOLOGISTID"></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Test Type:</B></TD>
+            <TD><INPUT TYPE="text" NAME="TEST_TYPE"><BR></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Prescribing Date(MM/DD/YYYY):</B></TD>
+            <TD><INPUT TYPE="text" NAME="PRESCRIBINGDATE"><BR></TD>
+        </TR>	
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Test Date(MM/DD/YYYY):</B></TD>
+            <TD><INPUT TYPE="text" NAME="TESTDATE"><BR></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Diagnosis:</B></TD>
+            <TD><INPUT TYPE="text" NAME="DIAGNOSIS"><BR></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Description:</B></TD>
+            <TD><INPUT TYPE="text" NAME="DESCRIPTION"><BR></TD>
+        </TR>
+    </TABLE>
+
+    <INPUT TYPE="hidden" NAME="Create" VALUE="CREATE_RADIOLOGY_RECORD">
+    <INPUT TYPE="submit" NAME="Submit" VALUE="SUBMIT">
+</FORM>
+
+
+</body>
+</html>
