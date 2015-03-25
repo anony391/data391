@@ -33,22 +33,22 @@ if(request.getParameter("Submit") != null) {	//extracting updateuser info
 	ResultSet rset = null;
 
 	
-    	String sqlString = "SELECT p.first_name,p.last_name,p.address,p.phone,r.test_date " 
+    	String sqlString = "SELECT p.first_name,p.last_name,p.address,p.phone,FIRST(r.test_date) AS first_date " 
 			+ "FROM persons p,radiology_record r WHERE p.person_id=r.patient_id,"
-			+ "r.diagnosis='"+diagnosis+"',r.test_date='"+year"';
+			+ "r.diagnosis='"+diagnosis+"',EXTRACT(YEAR FROM TO_DATE(r.test_date,"yyyy-mm-dd")='"+year"' GROUP BY p.first_name,p.last_name,p.addresses,p.phone";
 
 	try{
 		stmt = conn.createStatement();
 		rset = stmt.executeQuery(sqlString);
 
-		out.println("First Name\tLastName\tAddress\tPhone Number\tTest Date");
+		out.println("First Name\tLastName\tAddress\tPhone Number\tFirst Test Date");
 		while(rset != null && rset.next()){
 
 			first_name = rset.getString("first_name");
 			last_name = rset.getString("last_name");
 			address = rset.getString("address");
 			phone = rset.getString("phone");
-			test_date = rset.getString("test_date");
+			test_date = rset.getString("first_date");
 			out.format("%20s%20s%20s%20s%20s", first_name, last_name,
 			address, phone, test_date);
 		}
