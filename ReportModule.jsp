@@ -35,7 +35,7 @@ if(request.getParameter("Submit") != null) {	//extracting updateuser info
 	
     	String sqlString = "SELECT p.first_name,p.last_name,p.address,p.phone,FIRST(r.test_date) AS first_date " 
 			+ "FROM persons p,radiology_record r WHERE p.person_id=r.patient_id,"
-			+ "r.diagnosis='"+diagnosis+"',EXTRACT(YEAR FROM TO_DATE(r.test_date,"yyyy-mm-dd")='"+year"' GROUP BY p.first_name,p.last_name,p.addresses,p.phone";
+			+ "r.diagnosis='"+diagnosis+"',EXTRACT(YEAR FROM TO_DATE(r.test_date,"yyyy-mm-dd")='"+year+"' GROUP BY p.first_name,p.last_name,p.addresses,p.phone";
 
 	try{
 		stmt = conn.createStatement();
