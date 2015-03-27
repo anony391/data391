@@ -86,7 +86,6 @@ public class UploadImageLogicSQL extends HttpServlet {
 			"</BODY></HTML>");
 	}
   
-
 	//this creates a connection to database for insertion of picture
 	public Connection mkconn(){
 		String USER = ""; //Change these parameters when testing to your oracle password :)
