@@ -4,41 +4,16 @@
     <title>Create New Radiology Record</title>
     <link rel="stylesheet" type="text/css" href="RadiologyDatabase.css">
 </head>
-<FORM NAME="RadiologyRecord" ACTION="Create-Radiology-Record.jsp" METHOD="post" autocomplete="off">
+<FORM NAME="RadiologyRecord" ACTION="UploadImageLogicSQL" METHOD="post" autocomplete="off" enctype="multipart/form-data">
 
     <h2>Create new radiology record</h2>
     <TABLE>
         <TR VALIGN=TOP ALIGN=RIGHT>
-            <TD><B>patient ID number:</B></TD>
-            <TD><INPUT TYPE="text" NAME="PATIENTID"><BR></TD>
-        </TR>
-        <TR VALIGN=TOP ALIGN=RIGHT>
-            <TD><B>Doctor ID number:</B></TD>
-            <TD><INPUT TYPE="text" NAME="DOCTORID"></TD>
-        </TR>
-        <TR VALIGN=TOP ALIGN=RIGHT>
-            <TD><B>Radiologist ID number:</B></TD>
-            <TD><INPUT TYPE="text" NAME="RADIOLOGISTID"></TD>
-        </TR>
-        <TR VALIGN=TOP ALIGN=RIGHT>
-            <TD><B>Test Type:</B></TD>
-            <TD><INPUT TYPE="text" NAME="TEST_TYPE"><BR></TD>
-        </TR>
-        <TR VALIGN=TOP ALIGN=RIGHT>
-            <TD><B>Prescribing Date(MM/DD/YYYY):</B></TD>
-            <TD><INPUT TYPE="text" NAME="PRESCRIBINGDATE"><BR></TD>
-        </TR>	
-        <TR VALIGN=TOP ALIGN=RIGHT>
-            <TD><B>Test Date(MM/DD/YYYY):</B></TD>
-            <TD><INPUT TYPE="text" NAME="TESTDATE"><BR></TD>
-        </TR>
-        <TR VALIGN=TOP ALIGN=RIGHT>
-            <TD><B>Diagnosis:</B></TD>
-            <TD><INPUT TYPE="text" NAME="DIAGNOSIS"><BR></TD>
-        </TR>
-        <TR VALIGN=TOP ALIGN=RIGHT>
-            <TD><B>Description:</B></TD>
-            <TD><INPUT TYPE="text" NAME="DESCRIPTION"><BR></TD>
-        </TR>
+	    <TD><input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" /></TD>
+	</TR>
+	<TR>
+	    <TD><INPUT TYPE="submit" NAME="Submit" VALUE="SUBMIT"></TD>
+	</TR>
 </FORM>
+</TABLE>
 

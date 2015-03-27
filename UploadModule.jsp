@@ -5,20 +5,31 @@
 <%@ page import="java.text.*"%>
 <%@ page import="sqlcontrol.*"%>
 
-<%@ include file="new_radiology_record.html"%>
-<FORM id= "Upload-form" NAME="UPLOADFORM" enctype="multipart/form-data" ACTION="UploadModule.jsp" METHOD="post" autocomplete="off">
-    <TABLE>
-        <TR ALIGN=LEFT>
-            <TD><B><I>Image Source:</I></B></TD>
-            <TD><INPUT TYPE="file" SIZE="30" NAME="IMAGESRC"></TD>
-        </TR>
-</FORM>
-</TABLE>
-<TABLE>
-    <TR><TD><INPUT TYPE="submit" NAME="Upload" VALUE="UPLOAD FILE"><INPUT TYPE="submit" NAME="UploadMore" VALUE="UPLOAD MORE FILES"></TR></TD>
-    <TR ALIGN=CENTER><TD><INPUT TYPE="hidden" NAME="Create" VALUE="CREATE_RADIOLOGY_RECORD">
-    <INPUT TYPE="submit" NAME="Submit" VALUE="SUBMIT"></TR></TD>
-</FORM>
-</TABLE>
+
+<% if(request.getParameter("Submit") != null) {
+	//Connection conn = null;
+	//connmaker cn = null;
+	UploadImage imageUploader = null;
+	try{
+		//cn = new connmaker();
+    		//conn = cn.mkconn(); 	//creates a connection with database by using connectionmaker class
+  	}
+   	catch(Exception ex){
+        	//out.println("<hr>"+ ex.getMessage() + "<hr>");
+	}
+	try{
+      		imageUploader = new UploadImage();
+		imageUploader.doPost(request,response);
+		
+    	}
+	catch(Exception ex){
+        	out.println("<hr>"+ ex.getMessage() + "<hr>");
+		//conn.close();
+	}
+}
+
+else{%> 
+	<%@ include file="new_radiology_record.html"%>
+<%}%>
 </body>
 </html>
