@@ -1,9 +1,3 @@
-
-/***
- *  Based this code on http://luscar.cs.ualberta.ca:8080/yuan/UploadImageLogicSQL.java
- * author: Li-Yuan
- ***/
-
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -26,41 +20,24 @@ public class UploadImageLogicSQL extends HttpServlet {
 		throws ServletException, IOException {
 
 		try {
-			//Parse the HTTP request to get the image stream
-			DiskFileUpload fu = new DiskFileUpload();
-			List FileItems = fu.parseRequest(request);
-	    
-			// Process the uploaded items
-			Iterator i = FileItems.iterator();
-			FileItem item = (FileItem) i.next();
-			while (i.hasNext() && item.isFormField()) {
-				item = (FileItem) i.next();
-				long size = item.getSize();
-
-				//Get the image stream
-				InputStream instream = item.getInputStream();
-	    
 				// Connect to the database
 				Connection conn = mkconn();
 				
-				//getting newID for picture
+				//getting newID for radiology record
 				Statement stmt = null;
 				stmt = conn.createStatement();
-				ResultSet rset1 = stmt.executeQuery("SELECT pic_id_sequence.nextval from dual");
+				ResultSet rset1 = stmt.executeQuery("SELECT radiology_id_sequence.nextval from dual");
 				rset1.next();
-				int pic_id = rset1.getInt(1);
-
-				//Insert an blob into table with new ID
+				int new_id = rset1.getInt(1);
+				//Insert new information
 				PreparedStatement pstmt = null;
-				pstmt = conn.prepareStatement("insert into photos values(?, ?)");
-				pstmt.setInt(1,pic_id);
-				pstmt.setBinaryStream(2,instream,(int)size);
+				pstmt = conn.prepareStatement("insert into radiology_record (?) values(?, ?)");
 
 				// execute the insert statement
 				pstmt.executeUpdate();
 				pstmt.executeUpdate("commit");
 				conn.close();
-				response_message = "the file has been uploaded";
+				response_message = "The radiology record has been created";
 			}
 
 

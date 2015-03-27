@@ -6,27 +6,9 @@
 <%@ page import="sqlcontrol.*"%>
 
 
-<% if(request.getParameter("Submit") != null) {
-	//Connection conn = null;
-	//connmaker cn = null;
-	UploadImage imageUploader = null;
-	try{
-		//cn = new connmaker();
-    		//conn = cn.mkconn(); 	//creates a connection with database by using connectionmaker class
-  	}
-   	catch(Exception ex){
-        	//out.println("<hr>"+ ex.getMessage() + "<hr>");
-	}
-	try{
-      		imageUploader = new UploadImage();
-		imageUploader.doPost(request,response);
-		
-    	}
-	catch(Exception ex){
-        	out.println("<hr>"+ ex.getMessage() + "<hr>");
-		//conn.close();
-	}
-}
+<% if(request.getParameter("Submit") != null){%>
+	<%@ include file="ImageUpload.html"%>
+<%}
 
 else{%> 
 	<%@ include file="new_radiology_record.html"%>
