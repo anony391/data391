@@ -86,8 +86,8 @@ public class UploadImageLogicSQL extends HttpServlet {
 
 
   public Connection mkconn(){
-    String USER = "rdejesus"; //Change these parameters when testing to your oracle password :)
-    String PASSWORD = "Ihateyou1";
+    String USER = ""; //Change these parameters when testing to your oracle password :)
+    String PASSWORD = "";
     Connection conn = null;
     String driverName = "oracle.jdbc.driver.OracleDriver";
     String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
