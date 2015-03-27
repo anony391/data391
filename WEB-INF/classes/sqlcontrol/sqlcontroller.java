@@ -9,16 +9,15 @@ import java.io.IOException;
 public class sqlcontroller{
 	
 	public boolean logincheck(String user, String password, Connection conn) throws IOException, SQLException{
-	    Statement stmt = null;
+	    PreparedStatement pstmt = null;
 	    ResultSet rset = null;
-	    String sqlstring = "SELECT password FROM users WHERE user_name = '"+user+"'";
+		pstmt = conn.prepareStatement("SELECT password FROM users WHERE user_name = ?");
+	    pstmt.setString(1, user);
 	    try{
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(sqlstring);
+			rset = pstmt.executeQuery();
 	    }
 	    catch(Exception ex){
     		throw new IOException("Cannot retrieve information from database server.");
-	
 	    }
 	    String dbpassword = "";     //checking if results includes logininfo
 	    while(rset != null && rset.next()){
@@ -31,6 +30,10 @@ public class sqlcontroller{
 	        }
 	    }
 	    return false;
+	}
+	
+	
+	public boolean createRadiologyAccount(Map<String, String>){
 	}
   
 	/*
