@@ -1,29 +1,19 @@
 <!DOCTYPE html>
-<html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Upload Radiology Record</title>
+    <title>Create New Radiology Record</title>
     <link rel="stylesheet" type="text/css" href="RadiologyDatabase.css">
 </head>
+<FORM NAME="RadiologyRecord" ACTION="UploadImageLogicSQL" METHOD="post" autocomplete="off" enctype="multipart/form-data">
 
-<body>
-<FORM id= "Upload-form" NAME="UploadForm" enctype="multipart/form-data" ACTION="UploadModule.jsp" METHOD="post" autocomplete="off">
+    <h2>Create new radiology record</h2>
     <TABLE>
-        <TR VALIGN=TOP ALIGN=LEFT>
-            <TD><B><I>Person Fullname:</I></B></TD>
-            <TD><INPUT TYPE="text" NAME="PersonName"><BR></TD>
-        </TR>
-        <TR VALIGN=TOP ALIGN=LEFT>
-            <TD><B><I>Image Source:</I></B></TD>
-            <TD><INPUT TYPE="file" SIZE="30" NAME="ImageSrc"></TD>
-        </TR>
-    </TABLE>
-
-    <INPUT TYPE="submit" NAME="Submit" VALUE="Upload">
+        <TR VALIGN=TOP ALIGN=RIGHT>
+	    <TD><input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" /></TD>
+	</TR>
+	<TR>
+	    <TD><INPUT TYPE="submit" NAME="Upload" VALUE="Upload"></TD>
+	</TR>
 </FORM>
-
-
-</body>
-</html>
-
+</TABLE>
 
