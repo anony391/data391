@@ -12,13 +12,7 @@ if(request.getParameter("Submit") != null) {	//extracting updateuser info
 	try{
 		connmaker cn = new connmaker();
 		conn = cn.mkconn(); 	//creates a connection with database
-
-		String person_id = (String) session.getAttribute("personID");
-
-		if (!sqlContrl.classOfUser(conn,person_id).equals("a")){
-			out.println("Only administrators can generate reports.");
-%> <%@ include file="UserManageMenu.html"%>
-<% 		}	
+	
 
 	}
 	catch(Exception ex){

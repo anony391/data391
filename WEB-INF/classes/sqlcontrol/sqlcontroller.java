@@ -33,8 +33,8 @@ public class sqlcontroller{
 	}
 	
 	
-	public boolean createRadiologyAccount(Map<String, String>){
-	}
+	//public boolean createRadiologyAccount(Map<String, String>){
+	//}
   
 	/*
 	 * Generates a new person_id following the personID_sequence.
@@ -59,16 +59,16 @@ public class sqlcontroller{
 		
 	}
 	
-	public String classOfUser(Connection conn,String person_id) throws IOException, SQLException {
+	public String classOfUser(Connection conn,String username) throws IOException, SQLException {
 		  
 		Statement stmt = null;
 	    ResultSet rset = null;
-		String sqlString = "SELECT class FROM users WHERE person_id = '"+person_id+"'";
+		String sqlString = "SELECT class FROM users WHERE user_name = '"+username+"'";
 		try{
 		    stmt = conn.createStatement();
 		    rset = stmt.executeQuery(sqlString);
 		} catch(Exception ex) {
-		    throw new IOException("Could not get next value in sequence.");
+		    throw new IOException("Could not find class with specified username.");
 		
 		}
 		if ((rset != null) && rset.next()){
