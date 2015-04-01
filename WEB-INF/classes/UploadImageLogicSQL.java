@@ -22,7 +22,7 @@ import javax.imageio.ImageIO;
 */
 public class UploadImageLogicSQL extends HttpServlet {
     public String response_message;
-	private Integer record_id;
+	private Integer record_id;	//must grab this 
 	private Integer image_id;
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -31,7 +31,8 @@ public class UploadImageLogicSQL extends HttpServlet {
 		try {
 			//Parse the HTTP request to get the image stream
 			DiskFileUpload fu = new DiskFileUpload();
-			List FileItems = fu.parseRequest(request);
+			record_id = request.getParameters("record_id")
+			List FileItems = fu.parseRequest(request.getParameters("filesToUpload[]"));
 	    
 			// Process the uploaded items
 			Iterator i = FileItems.iterator();
@@ -51,12 +52,12 @@ public class UploadImageLogicSQL extends HttpServlet {
 				// Connect to the database
 				Connection conn = mkconn();
 				
-				//getting newID for picture
+				//getting newID for picture for image_id
 				Statement stmt = null;
 				stmt = conn.createStatement();
 				ResultSet rset1 = stmt.executeQuery("SELECT pic_id_sequence.nextval from dual");
 				rset1.next();
-				int pic_id = rset1.getInt(1);
+				int image_id = rset1.getInt(1);
 
 				//Insert an blob into table with new ID
 				PreparedStatement pstmt = null;
