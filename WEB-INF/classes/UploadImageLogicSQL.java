@@ -40,6 +40,11 @@ public class UploadImageLogicSQL extends HttpServlet {
 
 				//Get the image stream
 				InputStream instream = item.getInputStream();
+
+				//converting to smaller and smaller thumbnails
+				BufferedImage full_size = ImageIO.read(instream);
+	   			BufferedImage reg_size = shrink(full_size, 5);
+				BufferedImage thumbnail = shrink(reg_size, 5);
 	    
 				// Connect to the database
 				Connection conn = mkconn();
@@ -61,6 +66,8 @@ public class UploadImageLogicSQL extends HttpServlet {
 					System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
 					index1 +=1;
 					index2 +=1;
+					pstmt.setInt(1,pic_id);
+					pstmt.setBinaryStream(2,instream,(int)size);
 				}
 
 				// execute the insert statement
@@ -109,41 +116,6 @@ public class UploadImageLogicSQL extends HttpServlet {
 		}
 	}
 	
-	try {
-	    //Parse the HTTP request to get the image stream
-	    DiskFileUpload fu = new DiskFileUpload();
-	    List FileItems = fu.parseRequest(request);
-	        
-	    // Process the uploaded items, assuming only 1 image file uploaded
-	    Iterator i = FileItems.iterator();
-	    FileItem item = (FileItem) i.next();
-	    while (i.hasNext() && item.isFormField()) {
-		item = (FileItem) i.next();
-	    }
-
-	    //Get the image stream
-	    InputStream instream = item.getInputStream();
-
-	    BufferedImage img = ImageIO.read(instream);
-	    BufferedImage thumbNail = shrink(img, 10);
-
-            // Connect to the database and create a statement
-            Connection conn = getConnected(drivername,dbstring, username,password);
-	    Statement stmt = conn.createStatement();
-	    
-	    /*
-	     *  First, to generate a unique pic_id using an SQL sequence
-	     */
-	    ResultSet rset1 = stmt.executeQuery("SELECT pic_id_sequence.nextval from dual");
-	    rset1.next();
-	    pic_id = rset1.getInt(1);
-
-	    //Insert an empty blob into the table first. Note that you have to 
-	    //use the Oracle specific function empty_blob() to create an empty blob
-	    stmt.execute("INSERT INTO pictures VALUES("+pic_id+",'test',empty_blob())");
- 
-	    // to retrieve the lob_locator 
-	    // Note that you must use "FOR UPDATE" in the select statement
 	    String cmd = "SELECT * FROM pictures WHERE pic_id = "+pic_id+" FOR UPDATE";
 	    ResultSet rset = stmt.executeQuery(cmd);
 	    rset.next();
