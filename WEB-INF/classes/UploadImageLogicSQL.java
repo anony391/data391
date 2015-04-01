@@ -22,6 +22,8 @@ import javax.imageio.ImageIO;
 */
 public class UploadImageLogicSQL extends HttpServlet {
     public String response_message;
+	private Integer record_id;
+	private Integer image_id;
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
@@ -58,24 +60,35 @@ public class UploadImageLogicSQL extends HttpServlet {
 
 				//Insert an blob into table with new ID
 				PreparedStatement pstmt = null;
-				pstmt = conn.prepareStatement("INSERT INTO pacs_images (?,?,?,?,?) values(?,?,?,?,?)");
+				pstmt = conn.prepareStatement("INSERT INTO pacs_images (record_id,image_id,thumbnail,regular_size,full_size)"
+												+ "values(?,?,empty_blob(), empty_blob(),empty_blob())");
+												
+				pstmt.setInt(1,record_id);
+				pstmt.setInt(2, image_id);
 				
-				int index1 = 1;
-				int index2 = 6;
-				for (Map.Entry<String, String> entry : map.entrySet()) {
-					System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-					index1 +=1;
-					index2 +=1;
-					pstmt.setInt(1,pic_id);
-					pstmt.setBinaryStream(2,instream,(int)size);
-				}
+				// Retrieving the BLOB_locator 
+				pstmt = conn.prepareStatement("SELECT thumbnail,regular_size,full_size FROM pacs_images WHERE record_id = '?' AND image_id = '?' FOR UPDATE");
+				Resultset rset = pstmt.executeStatement();
+				BLOB thumbnail_blob = ((OracleResultSet)rset).getBLOB(3);
+				BLOB regular_blob = ((OracleResultSet)rset).getBLOB(3);
+				BLOB full_blob = ((OracleResultSet)rset).getBLOB(3);
 
-				// execute the insert statement
-				pstmt.executeUpdate();
-				pstmt.executeUpdate("commit");
-				conn.close();
+				//Write the image to the blob object
+				OutputStream thumbnail_out = thumbnail_blob.getBinaryOutputStream();
+				ImageIO.write(thumbnail, "jpg", thumbnail_out);
+				OutputStream regular_out = regular_blob.getBinaryOutputStream();
+				ImageIO.write(reg_size, "jpg", regular_out);
+				OutputStream full_out = full_bob.getBinaryOutputStream();
+				ImageIO.write(full_size, "jpg", full_out);
+				
+				thumbnail_out.close();
+				regular_out.close();
+				full_out.close();
+				instream.close();
+
 				response_message = "The Images Have been Uploaded";
 			}
+			conn.close();
 		}
 
 		catch( Exception ex ) {
@@ -97,7 +110,7 @@ public class UploadImageLogicSQL extends HttpServlet {
 			"</BODY></HTML>");
 	}
   
-	//this creates a connection to database for insertion of picture
+	//This creates a connection to database for insertion of picture
 	public Connection mkconn(){
 		String USER = ""; //Change these parameters when testing to your oracle password :)
 		String PASSWORD = "";
@@ -116,32 +129,9 @@ public class UploadImageLogicSQL extends HttpServlet {
 		}
 	}
 	
-	    String cmd = "SELECT * FROM pictures WHERE pic_id = "+pic_id+" FOR UPDATE";
-	    ResultSet rset = stmt.executeQuery(cmd);
-	    rset.next();
-	    BLOB myblob = ((OracleResultSet)rset).getBLOB(3);
-
-
-	    //Write the image to the blob object
-	    OutputStream outstream = myblob.getBinaryOutputStream();
-	    ImageIO.write(thumbNail, "jpg", outstream);
-	    
-	    /*
-	    int size = myblob.getBufferSize();
-	    byte[] buffer = new byte[size];
-	    int length = -1;
-	    while ((length = instream.read(buffer)) != -1)
-		outstream.write(buffer, 0, length);
-	    */
-	    instream.close();
-	    outstream.close();
-
-            stmt.executeUpdate("commit");
-	    response_message = " Upload OK!  ";
-            conn.close();
-
-
-    //shrink image by a factor of n, and return the shrinked image
+	//Shrinks image by a factor of n   					
+	// *** This was taken from http://webdocs.cs.ualberta.ca/~yuan/servlets/UploadImage.java
+	// **** Author:  Fan Deng
     public static BufferedImage shrink(BufferedImage image, int n) {
 
         int w = image.getWidth() / n;
