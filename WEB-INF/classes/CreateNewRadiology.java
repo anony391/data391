@@ -3,19 +3,9 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import java.sql.*;
 import java.util.*;
-import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.commons.fileupload.FileItem;
 
-/**
- *  The package commons-fileupload-1.0.jar are downloaded from 
- *     http://jakarta.apache.org/commons/fileupload/ 
- *  and it has to be put under WEB-INF/lib/ directory. 
- *  Remember to add the jar file to your CLASSPATH.
-*/
-
-public class UploadImageLogicSQL extends HttpServlet {
+public class CreateNewRadiology extends HttpServlet {
     public String response_message;
-
     public void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
@@ -26,28 +16,24 @@ public class UploadImageLogicSQL extends HttpServlet {
 				//getting newID for radiology record
 				Statement stmt = null;
 				stmt = conn.createStatement();
-				ResultSet rset1 = stmt.executeQuery("SELECT radiology_id_sequence.nextval from dual");
+				ResultSet rset1 = stmt.executeQuery("SELECT radiology_id_sequence.nextval FROM dual");
 				rset1.next();
 				int new_id = rset1.getInt(1);
+				
 				//Insert new information
 				PreparedStatement pstmt = null;
-				pstmt = conn.prepareStatement("insert into radiology_record (?) values(?, ?)");
+				pstmt = conn.prepareStatement("INSERT INTO radiology_record (?,?,?,?,?,?,?,?,?) VALUES (?,?,?,?,?,?,?,?,?)");
 
 				// execute the insert statement
 				pstmt.executeUpdate();
-				pstmt.executeUpdate("commit");
+				pstmt.executeUpdate("COMMIT");
 				conn.close();
 				response_message = "The radiology record has been created";
 			}
-
-
 		}
-
-
 		catch( Exception ex ) {
 			response_message = ex.getMessage();
 		}
-
 
 		//Output response to the client if image uploaded properly
 		response.setContentType("text/html");
@@ -55,7 +41,7 @@ public class UploadImageLogicSQL extends HttpServlet {
 		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 " +
 			"Transitional//EN\">\n" +
 			"<HTML>\n" +
-			"<HEAD><TITLE>Upload Message</TITLE></HEAD>\n" +
+			"<HEAD><TITLE>CREATED NEW RADIOLOGY RECORD</TITLE></HEAD>\n" +
 			"<BODY>\n" +
 			"<H1>" +
 				response_message +
