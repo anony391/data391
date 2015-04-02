@@ -15,11 +15,11 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>CreateNewRadiologyTest</servlet-name>
-        <servlet-class>CreateNewRadiologyTest</servlet-class>
+        <servlet-name>CreateNewRadiology</servlet-name>
+        <servlet-class>CreateNewRadiology</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>CreateNewRadiologyTest</servlet-name>
-        <url-pattern>/CreateNewRadiologyTest</url-pattern>
+        <servlet-name>CreateNewRadiology</servlet-name>
+        <url-pattern>/CreateNewRadiology</url-pattern>
     </servlet-mapping>
 </web-app>
