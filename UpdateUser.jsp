@@ -3,10 +3,18 @@
 <%@ page import="java.sql.*"%>
 <%
 Connection conn = null;
-if(request.getParameter("Submit") != null) {
+String submit = request.getParameter("Submit");
 
-    String userName = (request.getParameter("USERID").trim());
-    session.setAttribute( "userID", userName );
+String userName;
+if (submit != null) {
+	userName = request.getParameter("USERID");
+
+} else {
+
+	userName = (String) session.getAttribute("userID");
+}
+
+if (userName != null) {
 
     try{
 	connmaker cn = new connmaker();
