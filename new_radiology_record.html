@@ -1,52 +1,54 @@
-<!DOCTYPE html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Create New Radiology Record</title>
-    <link rel="stylesheet" type="text/css" href="RadiologyDatabase.css">
-</head>
 <FORM NAME="RadiologyRecord" ACTION="CreateNewRadiology" METHOD="post" autocomplete="off" enctype="multipart/form-data">
-
+<table>
     <h2>Create new radiology record</h2>
-    <TABLE>
-        <TR VALIGN=TOP ALIGN=RIGHT>
+
+	<TR VALIGN=TOP ALIGN=RIGHT>
             <TD><B>patient ID number:</B></TD>
             <TD><INPUT TYPE="text" NAME="PATIENTID"><BR></TD>
         </TR>
-        <TR VALIGN=TOP ALIGN=RIGHT>
+	<TR VALIGN=TOP ALIGN=RIGHT>
             <TD><B>Doctor ID number:</B></TD>
             <TD><INPUT TYPE="text" NAME="DOCTORID"></TD>
         </TR>
-        <TR VALIGN=TOP ALIGN=RIGHT>
+	<TR VALIGN=TOP ALIGN=RIGHT>
             <TD><B>Radiologist ID number:</B></TD>
             <TD><INPUT TYPE="text" NAME="RADIOLOGISTID"></TD>
         </TR>
-        <TR VALIGN=TOP ALIGN=RIGHT>
+	<TR VALIGN=TOP ALIGN=RIGHT>
             <TD><B>Test Type:</B></TD>
             <TD><INPUT TYPE="text" NAME="TEST_TYPE"><BR></TD>
         </TR>
-        <TR VALIGN=TOP ALIGN=RIGHT>
+	<TR VALIGN=TOP ALIGN=RIGHT>
             <TD><B>Prescribing Date(MM/DD/YYYY):</B></TD>
             <TD><INPUT TYPE="text" NAME="PRESCRIBINGDATE"><BR></TD>
         </TR>
-        <TR VALIGN=TOP ALIGN=RIGHT>
+	<TR VALIGN=TOP ALIGN=RIGHT>
             <TD><B>Test Date(MM/DD/YYYY):</B></TD>
             <TD><INPUT TYPE="text" NAME="TESTDATE"><BR></TD>
         </TR>
-        <TR VALIGN=TOP ALIGN=RIGHT>
+	<TR VALIGN=TOP ALIGN=RIGHT>
             <TD><B>Diagnosis:</B></TD>
             <TD><INPUT TYPE="text" NAME="DIAGNOSIS"><BR></TD>
         </TR>
-        <TR VALIGN=TOP ALIGN=RIGHT>
+	<TR VALIGN=TOP ALIGN=RIGHT>
             <TD><B>Description:</B></TD>
             <TD><INPUT TYPE="text" NAME="DESCRIPTION"><BR></TD>
         </TR>
 
 	<TR VALIGN=TOP ALIGN=RIGHT>
-	    <TD><input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" /></TD>
-	</TR>
-
-        <TR ALIGN=RIGHT>
             <TD><INPUT TYPE="submit" NAME="SubmitRadiology" VALUE="SUBMIT"></TD>
         </TR>
-	</TABLE>
-</FORM>
+	<TR VALIGN=TOP ALIGN=RIGHT> 
+	</TR>
+	<TR VALIGN=TOP ALIGN=RIGHT>
+	<TR VALIGN=TOP ALIGN=RIGHT> 
+	</TR>
+	<TR VALIGN=TOP ALIGN=RIGHT> 
+	</TR>
+	<TR VALIGN=TOP ALIGN=RIGHT>
+		<td>
+			<input type="button" name="Add Image" onclick="add(count++)" value="Add Image"/>
+		</td>
+	</tr>
+</form>
+</table>
