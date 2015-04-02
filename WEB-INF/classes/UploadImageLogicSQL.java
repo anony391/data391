@@ -31,14 +31,14 @@ public class UploadImageLogicSQL extends HttpServlet {
 		try {
 			//Parse the HTTP request to get the image stream
 			DiskFileUpload fu = new DiskFileUpload();
-			record_id = request.getParameters("record_id")
-			List FileItems = fu.parseRequest(request.getParameters("filesToUpload[]"));
+			//record_id = request.getParameters("record_id")
+			record_id = 1;
+			List FileItems = fu.parseRequest(request);
 	    
 			// Process the uploaded items
 			Iterator i = FileItems.iterator();
 			FileItem item = (FileItem) i.next();
-			while (i.hasNext() && item.isFormField()) {
-				item = (FileItem) i.next();
+			//while (i.hasNext() && item.isFormField()) {
 				long size = item.getSize();
 
 				//Get the image stream
@@ -48,48 +48,44 @@ public class UploadImageLogicSQL extends HttpServlet {
 				BufferedImage full_size = ImageIO.read(instream);
 	   			BufferedImage reg_size = shrink(full_size, 5);
 				BufferedImage thumbnail = shrink(reg_size, 5);
-	    
+
+				//Write the image to the outputstream as a picture
+				ByteArrayOutputStream thumbnail_out = new ByteArrayOutputStream();
+				ImageIO.write(thumbnail, "png", thumbnail_out);
+				ByteArrayOutputStream regular_out = new ByteArrayOutputStream();
+				ImageIO.write(reg_size, "png", regular_out);
+				// convert back to inputstream to be input
+				InputStream thumbnail_stream = new ByteArrayInputStream(thumbnail_out.toByteArray());
+				InputStream regular_stream = new ByteArrayInputStream(regular_out.toByteArray());
+
 				// Connect to the database
 				Connection conn = mkconn();
 				
 				//getting newID for picture for image_id
-				Statement stmt = null;
-				stmt = conn.createStatement();
-				ResultSet rset1 = stmt.executeQuery("SELECT pic_id_sequence.nextval from dual");
-				rset1.next();
-				int image_id = rset1.getInt(1);
+				//Statement stmt = null;
+				//stmt = conn.createStatement();
+				//ResultSet rset1 = stmt.executeQuery("SELECT pic_id_sequence.nextval from dual");
+				//rset1.next();
+				//int image_id = rset1.getInt(1);
+				int image_id = 1;
 
 				//Insert an blob into table with new ID
 				PreparedStatement pstmt = null;
 				pstmt = conn.prepareStatement("INSERT INTO pacs_images (record_id,image_id,thumbnail,regular_size,full_size)"
-												+ "values(?,?,empty_blob(), empty_blob(),empty_blob())");
-												
+												+ "values (?,?,?,?,?)");				
 				pstmt.setInt(1,record_id);
 				pstmt.setInt(2, image_id);
-				
-				// Retrieving the BLOB_locator 
-				pstmt = conn.prepareStatement("SELECT thumbnail,regular_size,full_size FROM pacs_images WHERE record_id = '?' AND image_id = '?' FOR UPDATE");
-				Resultset rset = pstmt.executeStatement();
-				BLOB thumbnail_blob = ((OracleResultSet)rset).getBLOB(3);
-				BLOB regular_blob = ((OracleResultSet)rset).getBLOB(3);
-				BLOB full_blob = ((OracleResultSet)rset).getBLOB(3);
-
-				//Write the image to the blob object
-				OutputStream thumbnail_out = thumbnail_blob.getBinaryOutputStream();
-				ImageIO.write(thumbnail, "jpg", thumbnail_out);
-				OutputStream regular_out = regular_blob.getBinaryOutputStream();
-				ImageIO.write(reg_size, "jpg", regular_out);
-				OutputStream full_out = full_bob.getBinaryOutputStream();
-				ImageIO.write(full_size, "jpg", full_out);
+				pstmt.setBlob(3, thumbnail_stream);
+				pstmt.setBlob(4, regular_stream);
+				pstmt.setBlob(5, instream);
+				pstmt.execute();
 				
 				thumbnail_out.close();
 				regular_out.close();
-				full_out.close();
 				instream.close();
-
+				conn.close();
 				response_message = "The Images Have been Uploaded";
-			}
-			conn.close();
+			//}
 		}
 
 		catch( Exception ex ) {
@@ -113,8 +109,8 @@ public class UploadImageLogicSQL extends HttpServlet {
   
 	//This creates a connection to database for insertion of picture
 	public Connection mkconn(){
-		String USER = ""; //Change these parameters when testing to your oracle password :)
-		String PASSWORD = "";
+		String USER = "rdejesus"; //Change these parameters when testing to your oracle password :)
+		String PASSWORD = "Ihateyou1";
 		Connection conn = null;
 		String driverName = "oracle.jdbc.driver.OracleDriver";
 		String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
