@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+	<TITLE>Data Analysis Module</TITLE>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="RadiologyDatabase.css">
+</HEAD>
+
+<BODY>
+<CENTER>
+
+<H1><CENTER>Generate OLAP Report</CENTER></H1>
+
+<FORM 
+ACTION="DataAnalysis.jsp" METHOD="post" >
+<CENTER>
+<P>Choose to display number of images for each patient, test type, and/or time period </P>
+<TABLE>
+	<TR VALIGN=TOP ALIGN=LEFT>
+		<TD>Patient:</TD>
+		<TD><INPUT type="checkbox" name="PATIENT" value="True"><BR></TD>
+	</TR>
+	<TR VALIGN=TOP ALIGN=LEFT>
+		<TD>Test Type:</TD>
+		<TD><INPUT type="checkbox" name="TESTTYPE" value="True"></TD>
+	</TR>
+</TABLE>
+
+<p>
+Time Period: 
+<select name="TIMEPERIOD">
+  <option value="">None</option>
+  <option value="Weekly">Weekly</option>
+  <option value="Monthly">Monthly</option>
+  <option value="Yearly">Yearly</option>
+</select>
+</p>
+
+<INPUT TYPE="submit" NAME="Submit" VALUE="GENERATE REPORT">
+</FORM>
+
+</CENTER>
+</BODY>
+</HTML>

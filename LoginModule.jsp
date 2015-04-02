@@ -29,8 +29,10 @@ if(request.getParameter("Submit") != null) {	//extracting logininfo
        conn.close();
     }
 
-    if(logbool == true){		
-      out.println("login successful");	//if user exists and password works this will be run.
+    if(logbool == true){	
+	session.setAttribute( "userID", username );	
+%> <%@ include file="Home_Menu.jsp"%>
+<%      
       conn.close();
     }
     else{

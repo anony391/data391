@@ -103,7 +103,6 @@ if(request.getParameter("Submit") != null) {	//extracting updateuser info
             stmt.executeUpdate(personInsertSql);
             stmt.executeUpdate(userInsertSql);
             stmt.executeUpdate(doctorInsertSql);
-	    out.println("Test.");
         }
         catch(Exception ex){
             out.println("<hr>"+ ex.getMessage() +"<hr>");
@@ -113,7 +112,7 @@ if(request.getParameter("Submit") != null) {	//extracting updateuser info
         out.println("Account was successfully created.");
     }
 
-    out.println("<a href='./UserManageMenu.html'>Return to menu</a>"); //May change this later
+    out.println("<a href='./Home_Menu.jsp'>Return to menu</a>");
 } else { %>
 <%@ include file="UserManageMenu.html"%>
 <%}%>
