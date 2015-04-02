@@ -4,7 +4,7 @@
     <title>Create New Radiology Record</title>
     <link rel="stylesheet" type="text/css" href="RadiologyDatabase.css">
 </head>
-<FORM NAME="RadiologyRecord" ACTION="CreateNewRadiology" METHOD="post" autocomplete="off" enctype="multipart/form-data">
+<FORM NAME="RadiologyRecord" ACTION="CreateNewRadiologyTest" METHOD="post" autocomplete="off" enctype="multipart/form-data">
 
     <h2>Create new radiology record</h2>
     <TABLE>
@@ -40,6 +40,11 @@
             <TD><B>Description:</B></TD>
             <TD><INPUT TYPE="text" NAME="DESCRIPTION"><BR></TD>
         </TR>
+
+	<TR VALIGN=TOP ALIGN=RIGHT>
+	    <TD><input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" /></TD>
+	</TR>
+
         <TR ALIGN=RIGHT>
             <TD><INPUT TYPE="submit" NAME="SubmitRadiology" VALUE="SUBMIT"></TD>
         </TR>
