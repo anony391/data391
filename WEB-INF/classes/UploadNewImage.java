@@ -9,14 +9,6 @@ public class CreateNewRadiology extends HttpServlet {
 	public String response_message;
 	private String grab_value;
 	private int radiology_id;
-	private int patient_id;
-	private int doctor_id;
-	private int radiologist_id;
-	private String test_type;
-	private String prescribing_date;
-	private String test_date;
-	private String diagnosis;
-	private String description;
 	private int image_id;
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
                                 throws ServletException, IOException {
@@ -24,46 +16,11 @@ public class CreateNewRadiology extends HttpServlet {
 				// Create new Multirequest to write in temp file
 			MultipartRequest request = new MultipartRequest(req, "/cshome/rdejesus/catalina/temp", 5 * 1024 * 1024);
 				// Grab all parameters from form
-			String grab_value = request.getParameter("PATIENTID");
-			int patient_id = Integer.parseInt(grab_value);
-			grab_value = request.getParameter("DOCTORID");
-			int doctor_id = Integer.parseInt(grab_value);
-			grab_value = request.getParameter("RADIOLOGISTID");
-			int radiologist_id = Integer.parseInt(grab_value);
-			String test_type = request.getParameter("TEST_TYPE");
-			String prescribing_date = request.getParameter("PRESCRIBINGDATE");
-			String test_date = request.getParameter("TESTDATE");
-			String diagnosis = request.getParameter("DIAGNOSIS");
-			String description = request.getParameter("DESCRIPTION");
+			String grab_value = request.getParameter("RECORDID");
+			radiology_id = Integer.parseInt(grab_value);
 		}
 			//create new connection
 		Connection conn = mkconn();
-		PreparedStatement pstmt = null;
-			//grab new radiology report id
-		pstmt = conn.prepareStatement("LOCK TABLE radiology_record IN EXCLUSIVE MODE");
-		pstmt.executeUpdate();
-		pstmt = conn.prepareStatement("SELECT COUNT(*) FROM radiology_record");
-		ResultSet rset1 = pstmt.executeQuery();
-		rset1.next();
-		radiology_id = rset1.getInt(1);
-		
-			//insert new radiology report
-		String sql = ("INSERT INTO radiology_record(record_id,patient_id,doctor_id,radiologist_id,test_type,prescribing_date,test_date,diagnosis, description)"
-						+ " values (?,?,?,?,?,to_date(?, 'mm-dd-yyyy'),to_date(?, 'mm-dd-yyyy'),?,?)");
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1,radiology_id);
-		pstmt.setInt(2,patient_id);
-		pstmt.setInt(3,doctor_id);
-		pstmt.setInt(4,radiologist_id);
-		pstmt.setString(5,test_type);
-		pstmt.setString(6,prescribing_date);
-		pstmt.setString(7,test_date);
-		pstmt.setString(8,diagnosis);
-		pstmt.setString(9,description);
-		pstmt.execute();
-			//close statements   
-		pstmt.close();
-			// Grab Image Files
 		Enumeration files = request.getFileNames();
 		while (files.hasMoreElements()) {
 			String name = (String)files.nextElement();
@@ -100,7 +57,6 @@ public class CreateNewRadiology extends HttpServlet {
 			pstmt.setBlob(4,regular_stream);
 			pstmt.setBlob(5,full_stream);
 			pstmt.execute();
-			
 				//close all streams and statements
 			thumbnail_outstream.close();
 			regular_outstream.close();
@@ -109,6 +65,7 @@ public class CreateNewRadiology extends HttpServlet {
 			conn.close();
 			response_message = "The Images Have been Uploaded";
 		}
+			
 		catch (Exception e) {
 			response_message = ex.getMessage();
 		}
@@ -124,7 +81,7 @@ public class CreateNewRadiology extends HttpServlet {
 				response_message +
 			"</H1>\n" +
 			"</BODY></HTML>");
-	}
+		}
 		//This creates a connection to database for insertion of picture
 	public Connection mkconn(){
 		String USER = ""; 	//Change these parameters when testing to your oracle password :)

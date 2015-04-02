@@ -15,11 +15,11 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>Asn2Sample</servlet-name>
-        <servlet-class>Asn2Sample</servlet-class>
+        <servlet-name>CreateNewRadiology</servlet-name>
+        <servlet-class>CreateNewRadiology</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Asn2Sample</servlet-name>
-        <url-pattern>/Asn2Sample</url-pattern>
+        <servlet-name>CreateNewRadiology</servlet-name>
+        <url-pattern>/CreateNewRadiology</url-pattern>
     </servlet-mapping>
 </web-app>
