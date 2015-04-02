@@ -5,42 +5,40 @@
 <%@ page import="java.text.*"%>
 <%@ page import="sqlcontrol.*"%>
 <%
-//Connection conn = null;
+Connection connec = null;
 sqlcontroller sqlContrl = new sqlcontroller();
-if(request.getParameter("Submit") != null) {	//extracting updateuser info
-	String classType;
-	try{
-		//connmaker cn = new connmaker();
-		conn = cn.mkconn(); 	//creates a connection with database
-		out.println("Before class function");
-		//String username = (String) session.getAttribute("userID");
-		
-		out.println("Before class function");
-		classType = sqlContrl.classOfUser(conn,username);
-	out.println("Class: '"+classType+"'");
+try {	//extracting updateuser info
 
-	if (classType.equals("a")){		
+	String classType;
+	connmaker cnmake = new connmaker();
+	connec = cnmake.mkconn(); //creates a connection with database
+	String user_name = (String) session.getAttribute("userID");
+	
+	classType = sqlContrl.classOfUser(connec,user_name);
+
+	if (classType != null) {
+
+		if (classType.equals("a")){		
 %> <%@ include file="Home_SystemAdminstrator.html"%>
-<% 	} else if (classType.equals("r")){
+<% 		} else if (classType.equals("r")){
 %> <%@ include file="Home_Radiology.html"%>
-<% 	} else if (classType.equals("d")){
+<% 		} else if (classType.equals("d")){
 %> <%@ include file="Home_Doctor.html"%>
-<% 	} else if (classType.equals("u")){
+<% 		} else if (classType.equals("p")){
 %> <%@ include file="Home_User.html"%>
+<%		}
+
+	} else { %>
+<%@ include file="LoginModule.html"%>
 <%	}
 
-	}
-	catch(Exception ex){
-	out.println("<hr>"+ ex.getMessage() + "<hr>");
-	}
+}
+catch(Exception ex){
+out.println("<hr>"+ ex.getMessage() + "<hr>");
+}
 
-
-
-	conn.close();	
-	
-} else { %>
-<%@ include file="LoginModule.html"%>
-<%}%>
+	connec.close();	
+%>
 </BODY>
 </HTML>
 

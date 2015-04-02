@@ -23,29 +23,39 @@ if(request.getParameter("Submit") != null) {	//extracting updateuser info
 
 	/*Get updated user info*/
 	String diagnosis = (request.getParameter("DIAGNOSIS").trim());
-	String year = (request.getParameter("YEAR").trim());
+	String yearStr = (request.getParameter("YEAR").trim());
+	int year = Integer.parseInt(yearStr);
 	
-    	String sqlString = "SELECT p.first_name,p.last_name,p.address,p.phone,FIRST(r.test_date) AS first_date " 
-			+ "FROM persons p,radiology_record r WHERE p.person_id=r.patient_id,"
-			+ "r.diagnosis='"+diagnosis+"',EXTRACT(YEAR FROM TO_DATE(r.test_date,'yyyy-mm-dd')='"+year+"' GROUP BY p.first_name,p.last_name,p.addresses,p.phone";
+    	String sqlString = "SELECT *"
+			+ " FROM (SELECT p.first_name,p.last_name,p.address,p.phone,r.test_date,ROW_NUMBER()"
+			+ " OVER (PARTITION BY p.person_id ORDER BY r.test_date) AS rownumber" 
+			+ " FROM persons p,radiology_record r WHERE p.person_id=r.patient_id"
+			+ " AND r.diagnosis='"+diagnosis+"'" 
+			+ " AND EXTRACT(YEAR FROM r.test_date)="+year+")"
+			+ " WHERE rownumber=1";
 
-	try{
+	try {
 		stmt = conn.createStatement();
 		rset = stmt.executeQuery(sqlString);
 
-		out.println("First Name\tLastName\tAddress\tPhone Number\tFirst Test Date");
+		//Print title column of table
+		out.println("<table style='width:50%'>");
+		out.println("<tr><th>First Name</th><th>Last Name</th><th>Address</th>");
+		out.println("<th>Phone</th><th>Test Date</th></tr>");
+
 		while(rset != null && rset.next()){
 
 			String first_name = rset.getString("first_name");
 			String last_name = rset.getString("last_name");
 			String address = rset.getString("address");
 			String phone = rset.getString("phone");
-			String test_date = rset.getString("first_date");
-			String rowStr = String.format("%20s%20s%20s%20s%20s", 
-				first_name, last_name, address, phone, test_date);
-			out.println(rowStr);
-		}
+			String test_date = rset.getString("test_date");
 
+			out.println("<tr><td>"+first_name+"</td><td>"+last_name+"</td><td>"+address+"</td>");
+			out.println("<td>"+phone+"</td><td>"+test_date+"</td></tr>");
+
+		}
+		out.println("</table>");
 	
 
 	}
@@ -57,7 +67,7 @@ if(request.getParameter("Submit") != null) {	//extracting updateuser info
 	conn.close();
 
 	
-	out.println("<a href='./UserManageMenu.html'>Return to menu</a>"); //May change this later
+	out.println("<a href='./Home_Menu.jsp'>Return to menu</a>");
 	
 	
 } else { %>
