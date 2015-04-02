@@ -64,6 +64,7 @@ public class CreateNewRadiology extends HttpServlet {
 			pstmt.close();
 			conn.close();
 			response_message = "The Images Have been Uploaded";
+		}
 			
 		catch (Exception e) {
 			response_message = ex.getMessage();
@@ -80,7 +81,7 @@ public class CreateNewRadiology extends HttpServlet {
 				response_message +
 			"</H1>\n" +
 			"</BODY></HTML>");
-  }
+		}
 		//This creates a connection to database for insertion of picture
 	public Connection mkconn(){
 		String USER = ""; 	//Change these parameters when testing to your oracle password :)
