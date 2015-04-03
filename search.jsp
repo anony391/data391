@@ -17,9 +17,12 @@
 	    		catch(Exception ex){
 				out.println("<hr>"+ ex.getMessage() + "<hr>");
 	    		}
-              PreparedStatement doSearch = m_con.prepareStatement("SELECT p.thumbnail, r.record_id, r.description, score(1) FROM radiology_record r ,pacs_images p WHERE p.record_id = r.record_id AND contains(description, ?, 1) > 0");
+            PreparedStatement doSearch = m_con.prepareStatement("SELECT p.image_id, r.record_id, r.description, score(1) FROM radiology_record r ,pacs_images p WHERE p.record_id = r.record_id AND contains(description, ?, 1) > 0");
 			doSearch.setString(1, request.getParameter("query"));
 			ResultSet rset2 = doSearch.executeQuery();
+			String image_id = Integer.toString(rset.getInt(1));
+			String record_id = Integer.toString(rset.getInt(2));
+			String p_id = image_id+","+record_id;
 			out.println("<table border=1>");
 			out.println("<tr>");
 			out.println("<th>Item Name</th>");
@@ -35,7 +38,7 @@
 				out.println(rset2.getString(3)); 
 				out.println("</td>");
 				out.println("<td>");
-				out.println(rset2.getBlob(1));
+					out.println("<img src=\"/servlet/GetOnePic?"+p_id+"\">");
 				out.println("</td>");
 				out.println("</tr>");
 		      	} 
