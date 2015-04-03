@@ -92,17 +92,15 @@ public class CreateNewRadiology extends HttpServlet {
 			conn.commit();
 				//close statements   
 			pstmt.close();
+
 			// Grab Image Files
-			///INSERT HERE FOR THE TAKEN OUT PLACE
-
-
-
-
-
-
 			Enumeration files = request.getFileNames();
 			while (files.hasMoreElements()) {
 				String name = (String)files.nextElement();
+				String type = request.getContentType(name);
+				if(type == "null"){
+					continue;
+				}
 				File file =  request.getFile(name); 	
 				//Get the image stream
 				InputStream full_stream = new java.io.FileInputStream(file);
@@ -149,12 +147,6 @@ public class CreateNewRadiology extends HttpServlet {
 				conn.close();
 				response_message = "The Images Have been Uploaded";
 
-
-
-
-
-//
-			response_message = "successfully";
 			}
 			catch (Exception ex) {
 			response_message = ex.getMessage();
@@ -174,13 +166,10 @@ public class CreateNewRadiology extends HttpServlet {
 
 	}
 
-
-
-
 		//This creates a connection to database for insertion of picture
 	public Connection mkconn(){
 		String USER = ""; 	//Change these parameters when testing to your oracle password :)
-		String PASSWORD = "1";
+		String PASSWORD = "";
 		Connection conn = null;
 		String driverName = "oracle.jdbc.driver.OracleDriver";
 		String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
