@@ -16,7 +16,7 @@ a {
 #menu {
 float: left;
 }
-p {
+#desc {
 float: right;
 display: inline-block;
 word-wrap: break-word;

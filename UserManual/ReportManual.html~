@@ -21,7 +21,7 @@
 </div>
 
 <h2>Report Generating Manual</h2>
-<p id="desc">This module will be used by a system administrator to get the list of all
+<p>This module will be used by a system administrator to get the list of all
     patients with a specified diagnosis for a given time period.</p>
 <ol>
     <li>Select “Generate Report” in home menu</li>

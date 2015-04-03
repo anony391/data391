@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Report Generating Manual</title>
+    <title>Data Analysis Manual</title>
     <link rel="stylesheet" type="text/css" href="../RadiologyDatabase.css">
 </head>
 <body>
@@ -20,15 +20,19 @@
     </ul>
 </div>
 
-<h2>Report Generating Manual</h2>
-<p id="desc">This module will be used by a system administrator to get the list of all
-    patients with a specified diagnosis for a given time period.</p>
+<h2>Data Analysis Manual</h2>
+<p>This module will be used by the system administrator to generate and display
+    an OLAP report for data analysis. A user of this module may choose to display
+    the number of images for each patient, test type, and/or period of time.</p>
+
 <ol>
-    <li>Select “Generate Report” in home menu</li>
-    <li>Enter the desired diagnosis</li>
-    <li>Enter the year of diagnosis</li>
-    <li>Press “Generate” to generate report</li>
+    <li>Select “Search Uploaded Records” in home menu</li>
 </ol>
 
+<ol>
+    <li>Select “Analyze Data” in home menu</li>
+    <li>Select desired options for generated report</li>
+    <li>Press “Generate Report” to generate OLAP report</li>
+</ol>
 </body>
 </html>
