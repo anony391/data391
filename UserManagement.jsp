@@ -14,10 +14,12 @@ if(request.getParameter("Submit") != null) {	//extracting updateuser info
 
 
     /*Check if both passwords match, otherwise return to UpdateUserInfo page*/
-    if (!(password.equals(password2))) {
-        out.println("Passwords do not match. Please try again.");
-%> <%@ include file="UserManageMenu.html"%>
-<%  }
+    	if (!(password.equals(password2))) {
+		response.sendRedirect("Home_Menu.jsp");
+    	} 
+
+
+	
     /*Get updated user info*/
     String username = (request.getParameter("USERID").trim());
     String firstName = (request.getParameter("FIRSTNAME").trim());

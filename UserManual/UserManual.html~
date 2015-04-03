@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Report Generating Manual</title>
+    <title>User Manual</title>
     <link rel="stylesheet" type="text/css" href="../RadiologyDatabase.css">
 </head>
 <body>
@@ -20,15 +20,13 @@
     </ul>
 </div>
 
-<h2>Report Generating Manual</h2>
-<p id="desc">This module will be used by a system administrator to get the list of all
-    patients with a specified diagnosis for a given time period.</p>
-<ol>
-    <li>Select “Generate Report” in home menu</li>
-    <li>Enter the desired diagnosis</li>
-    <li>Enter the year of diagnosis</li>
-    <li>Press “Generate” to generate report</li>
-</ol>
+<h2>User Manual</h2>
+<p>Welcome to the user manual. This is a web-based data application program simulates a Radiology Information System (RIS).
+    This application allows users with certain privileges to access and view radiology records.
+    There are four different classes of users: patients, doctors, radiologists, and administrators.
+    The system is divided in to 6 different modules each performing a specific task: a Login module,
+    a User Management module, a Report Generating module, an Uploading module, a Search module, and a Data Analysis module.
 
+</p>
 </body>
 </html>

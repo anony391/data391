@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Report Generating Manual</title>
+    <title>Search Manual</title>
     <link rel="stylesheet" type="text/css" href="../RadiologyDatabase.css">
 </head>
 <body>
@@ -20,14 +20,12 @@
     </ul>
 </div>
 
-<h2>Report Generating Manual</h2>
-<p id="desc">This module will be used by a system administrator to get the list of all
-    patients with a specified diagnosis for a given time period.</p>
+<h2>Search Manual</h2>
+<p>This module will be used by all the registered users to search the database
+    for a list of relevant radiology records and to view medical images with the
+    zoom-in facility</p>
 <ol>
-    <li>Select “Generate Report” in home menu</li>
-    <li>Enter the desired diagnosis</li>
-    <li>Enter the year of diagnosis</li>
-    <li>Press “Generate” to generate report</li>
+    <li>Select “Search Uploaded Records” in home menu</li>
 </ol>
 
 </body>
