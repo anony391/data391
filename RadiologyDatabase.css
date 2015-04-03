@@ -3,3 +3,34 @@ margin: 0 auto;
 width:300px;
 font-family:"Ariel";
 }
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+a {
+    display: block;
+    width: 150px;
+    background-color: #dddddd;
+}
+#menu {
+float: left;
+}
+p {
+float: right;
+display: inline-block;
+word-wrap: break-word;
+width: 80%;
+}
+h2 {
+text-align: center;
+}
+h4 {
+text-align: left;
+}
+ol {
+float: right;
+
+word-wrap: break-word;
+width: 80%;
+}
