@@ -18,7 +18,7 @@ import java.util.List;
  *  @author  Li-Yan Yuan
  *
  */
-public class GetOnePic extends HttpServlet 
+public class GetBigPic extends HttpServlet 
     implements SingleThreadModel {
 
     /**
@@ -47,7 +47,7 @@ public class GetOnePic extends HttpServlet
 	    	conn = mkconn();
 		PreparedStatement pstmt = null;
 			//grab image
-		pstmt = conn.prepareStatement("select thumbnail from pacs_images where record_id = ? AND image_id = ?");
+		pstmt = conn.prepareStatement("select regular_size from pacs_images where record_id = ? AND image_id = ?");
 		pstmt.setInt(1,radiology_id);
 		pstmt.setInt(2,image_id);
 		ResultSet rset = pstmt.executeQuery();

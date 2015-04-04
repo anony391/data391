@@ -22,13 +22,22 @@
         <servlet-name>CreateNewRadiology</servlet-name>
         <url-pattern>/CreateNewRadiology</url-pattern>
     </servlet-mapping>
-	
-	 <servlet>
+
+    <servlet>
      <servlet-name>GetOnePic</servlet-name>
      <servlet-class>GetOnePic</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GetOnePic</servlet-name>
         <url-pattern>/servlet/GetOnePic</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+     <servlet-name>GetBigPic</servlet-name>
+     <servlet-class>GetBigPic</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetBigPic</servlet-name>
+        <url-pattern>/servlet/GetBigPic</url-pattern>
     </servlet-mapping>
 </web-app>

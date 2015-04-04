@@ -1,54 +1,107 @@
+<HTML><BODY>
 <%@ page import="java.sql.*, java.util.*" %>
 <%@ page import="connectionmaker.*"%>
 <%@ page import="sqlcontrol.*"%>
-
-    <% 		
-	Connection m_con = null;
-	connmaker cn = null;
+<%@ include file="Search_database.html"%>
+<% 		
 	if (request.getParameter("search") != null){
-          	out.println("<br>");
-          	out.println("Query is " + request.getParameter("query"));
-          	out.println("<br>");
-        	if(!(request.getParameter("query").equals(""))){
-			try {
-				cn = new connmaker();
-        			m_con = cn.mkconn(); 	//creates a connection with database by using connectionmaker class
-    			}
-	    		catch(Exception ex){
-				out.println("<hr>"+ ex.getMessage() + "<hr>");
-	    		}
-            PreparedStatement doSearch = m_con.prepareStatement("SELECT p.image_id, r.record_id, r.description, score(1) FROM radiology_record r ,pacs_images p WHERE p.record_id = r.record_id AND contains(description, ?, 1) > 0");
+		connmaker cn = null;
+		Connection conn = null;
+		sqlcontroller scontroller = null;
+		String query = request.getParameter("query");
+		String toDate = request.getParameter("toDate");
+		String fromDate = request.getParameter("fromDate");
+		String rankType = request.getParameter("rankType");
+		ResultSet rset = null;
+		ResultSet rset2 = null;
+		//usertype = session.getAttribute("userType");
 
+		try{
+			cn = new connmaker();
+			conn = cn.mkconn(); 	//creates a connection with database by using connectionmaker class
+ 		}
+			catch(Exception ex){
+			out.println("<hr>"+ ex.getMessage() + "<hr>");
+		}
 
-			doSearch.setString(1, request.getParameter("query"));
-			ResultSet rset2 = doSearch.executeQuery();
+		try{
+			scontroller = new sqlcontroller();
+			if(query.equals("") && rankType.equals("keywords")){
+				out.println("<b>ERROR: No Keywords Entered. Cannot Rank by keywords!! </b><br>");
+			}
+			rset = scontroller.search_database(conn, query, toDate, fromDate, rankType);
 			String p_id = null;
-			out.println("<table border=1>");
+			out.println("<table border=1 valign=bottom align=center>");
+			out.println("<b>Results for '"+query+"' Ranked by " +rankType+"</b>");
+			out.println("dates between "+fromDate+" to "+toDate);
 			out.println("<tr>");
-			out.println("<th>Item Name</th>");
-			out.println("<th>Item Description</th>");
-			out.println("<th>Score</th>");
+			out.println("<th>Record ID</th>");
+			out.println("<th>Patient ID</th>");
+			out.println("<th>Doctor ID</th>");
+			out.println("<th>Radiologist ID</th>");
+			out.println("<th>Test Type</th>");
+			out.println("<th>Prescribing Date</th>");
+			out.println("<th>Test Date</th>");
+			out.println("<th>Diagnosis</th>");
+			out.println("<th>Description</th>");
+			out.println("<th>Images</th>");
 			out.println("</tr>");
-			while(rset2.next()) {
-				String image_id = Integer.toString(rset2.getInt(1));
-				String record_id = Integer.toString(rset2.getInt(2));
-				p_id = image_id+","+record_id;
+			while(rset.next()) {
 		        	out.println("<tr>");
 		        	out.println("<td>"); 
-			       	out.println(image_id);
+			       	out.println(rset.getInt(2));
 				out.println("</td>");
-				out.println("<td>"); 
-				out.println(record_id); 
+		        	out.println("<td>"); 
+			       	out.println(rset.getInt(5));
+				out.println("</td>");
+		        	out.println("<td>"); 
+			       	out.println(rset.getInt(6));
+				out.println("</td>");
+		        	out.println("<td>"); 
+			       	out.println(rset.getInt(7));
+				out.println("</td>");
+		        	out.println("<td>"); 
+			       	out.println(rset.getString(8));
+				out.println("</td>");
+		        	out.println("<td>"); 
+			       	out.println(rset.getDate(9));
+				out.println("</td>");
+		        	out.println("<td>"); 
+			       	out.println(rset.getDate(4));
+				out.println("</td>");
+		        	out.println("<td>"); 
+			       	out.println(rset.getString(10));
+				out.println("</td>");
+		        	out.println("<td>"); 
+			       	out.println(rset.getString(11));
 				out.println("</td>");
 				out.println("<td>");
-					out.println("<img src=\"/data391/servlet/GetOnePic?"+p_id+"\">");
+				out.println("<table>");
+				rset2 = scontroller.search_images(conn, Integer.toString(rset.getInt(1)));
+				while(rset2.next()) {
+					String image_id = Integer.toString(rset2.getInt(1));
+					String record_id = Integer.toString(rset2.getInt(2));
+					p_id = image_id+","+record_id;
+					out.println("<tr>");
+					out.println("<td>"); 
+					out.println("<a href=\"/data391/servlet/GetBigPic?"+p_id+"\">");
+					out.println("<img src=\"/data391/servlet/GetOnePic?"+p_id+"\"></a>");
+					out.println("</td>");
+					out.println("</tr>"); 
+				}
+				out.println("</table>");
 				out.println("</td>");
 				out.println("</tr>");
 		      	} 
 			out.println("</table>");
-			m_con.close();
+			conn.close();
+		}	
+		catch(Exception ex){
+			out.println("<hr>" + ex.getMessage() + "<hr>");
+			conn.close();
 		}
 	}
-      %>
-<%@ include file="Search_database.html"%>
+%>
+
+</HTML></BODY>
 
