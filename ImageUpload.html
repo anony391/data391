@@ -4,20 +4,28 @@
     <title>Add Image To Radiology Record</title>
     <link rel="stylesheet" type="text/css" href="RadiologyDatabase.css">
 </head>
-<FORM NAME="RadiologyRecord" ACTION="UploadNewImage" METHOD="post" autocomplete="off" enctype="multipart/form-data">
+<FORM NAME="RadiologyRecord" ACTION="UpdateRadiology" METHOD="post" autocomplete="off" enctype="multipart/form-data">
 
-    <h2>Add new image to radiology record:</h2>
-    <TABLE>
-	<TR VALIGN=TOP ALIGN=RIGHT>
+    <TABLE WIDTH=500>
+  	<h2>Add new image to radiology record:</h2>
+	<TR VALIGN=TOP ALIGN=CENTER>
 		<TD><B>Radiology Report ID number:</B></TD>
-		<TD><INPUT TYPE="text" NAME="RECORDID"><BR></TD>
+		<TD><INPUT TYPE="text" NAME="RECORDID"></TD>
 	</TR>
-    <TR VALIGN=TOP ALIGN=RIGHT>
-		<TD><input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" /></TD>
-	</TR>
-	<TR>
+	<TR ALIGN=RIGHT VALIGN=BOTTOM>
 	    <TD><INPUT TYPE="submit" NAME="Upload" VALUE="Upload"></TD>
 	</TR>
+	<TR VALIGN=TOP ALIGN=RIGHT> 
+	</TR>
+	<TR VALIGN=TOP ALIGN=RIGHT>
+	<TR VALIGN=TOP ALIGN=RIGHT> 
+	</TR>
+	<TR VALIGN=TOP ALIGN=RIGHT> 
+	</TR>
+	<TR VALIGN=TOP ALIGN=RIGHT>
+		<td>
+			<input type="button" name="Add Image" onclick="add(count++)" value="Add Image"/>
+		</td>
 </FORM>
 </TABLE>
 

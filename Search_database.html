@@ -1,0 +1,36 @@
+<HTML>
+<HEAD>
+<TITLE>Search Records</TITLE>
+</HEAD>
+<BODY>
+<FORM NAME="Search" ACTION="search.jsp" METHOD="post" >
+<b><center>SEARCH RECORDS</b>
+      <table>
+        	<tr align=center>
+			<td><b>Keywords: </b><input type=text name="query" placeholder="Ex: breast cancer, broken..."></td>
+		</tr>
+		<tr align=center>
+			<td><b>Records from:</td>
+		</tr>
+		<tr align=center>
+			<td><input type=text name="fromDate" size=8 placeholder="mm-dd-yyyy"> to <input type=text name="toDate" size=8 placeholder="mm-dd-yyyy"></b></td>
+		</tr>
+		<tr align=center>
+			<td>
+				Choose how to rank: 
+				
+			 	<select name='rankType'>
+				<option value='recentfirst'>Most Recent Records First</option>
+				<option value='recentlast'>Most Recent Records Last</option>
+				<option value='keywords'>Keyword relevance</option>
+			</td>
+		</tr>		
+		<tr align = center>
+			<td><input type=submit value="Search" name="search"></td>
+        	</tr>
+
+</center>
+</table>
+</FORM>
+</BODY>
+</HTML>
