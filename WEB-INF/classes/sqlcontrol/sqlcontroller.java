@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class sqlcontroller{
+public class sqlcontroller {
 	public boolean logincheck(String user, String password, Connection conn) throws IOException, SQLException{
 	    PreparedStatement pstmt = null;
 	    ResultSet rset = null;
@@ -32,17 +32,12 @@ public class sqlcontroller{
 	    return false;
 	}
 	
-
-	//public boolean createRadiologyAccount(Map<String, String>){
-	//}
-  
 	/*
 	 * Generates a new person_id following the personID_sequence.
 	 */
 	public String generateNextID(Connection conn) throws IOException, SQLException {
-	  
 		Statement stmt = null;
-	    ResultSet rset = null;
+		ResultSet rset = null;
 		String sqlString = "SELECT personID_sequence.nextval FROM DUAL";
 		try{
 		    stmt = conn.createStatement();
@@ -59,8 +54,7 @@ public class sqlcontroller{
 		
 	}
 	
-	public String classOfUser(Connection conn,String username) throws IOException, SQLException {
-		  
+	public String classOfUser(Connection conn,String username) throws IOException, SQLException { 
 		Statement stmt = null;
 	    ResultSet rset = null;
 		String sqlString = "SELECT class FROM users WHERE user_name = '"+username+"'";
@@ -77,7 +71,6 @@ public class sqlcontroller{
 		} else {
 			return "error";
 		}
-		
 	}
 
 
@@ -93,15 +86,11 @@ public class sqlcontroller{
 				rank_by = "r.test_date desc";
 			}
 			else if(rankType.equals("recentlast")){
-
 				rank_by = "r.test_date";
 			}
 			else{
-			
 				rank_by = "rank desc";
 			}
-
-
 			int person_id = 1;
 			List<String> keywords = Arrays.asList(query.split("\\s*,\\s*"));
 			String keyword = keywords.get(0);
@@ -129,17 +118,10 @@ public class sqlcontroller{
 			else{
 				sql = String.format("SELECT r.record_id, r.record_id, 6*(%s)+3*(%s)+(%s) as rank, r.test_date, r.patient_id, r.doctor_id, r.radiologist_id, r.test_type, r.prescribing_date, r.diagnosis, r.description FROM radiology_record r, persons p WHERE p.person_id = r.patient_id AND p.person_id = 1 AND (%s) ORDER BY %s",name_score,diagnosis_score,description_score,contains_all, rank_by);
 			}
-
-
 		    	PreparedStatement pstmt = conn.prepareStatement(sql);
-
 			ResultSet rset2 = pstmt.executeQuery();
-
 			return rset2;			
         	}
-
-
-
 		else{			
 			String date = "";
 			String sql;
@@ -155,24 +137,16 @@ public class sqlcontroller{
 			
 				return null;
 			}
-
-
 			if( !(dateTo.equals("")) && !(dateFrom.equals("")) ){
 				date = String.format("r.test_date >=TO_DATE('%s', 'MM-DD-YYYY') AND r.test_date <=TO_DATE('%s', 'MM-DD-YYYY')", dateFrom, dateTo);
 				sql = String.format("SELECT r.record_id, r.record_id, r.patient_id, r.test_date, r.patient_id, r.doctor_id, r.radiologist_id, r.test_type, r.prescribing_date, r.diagnosis, r.description FROM radiology_record r, persons p WHERE p.person_id = r.patient_id AND p.person_id = 1 AND %s ORDER BY %s", date, rank_by);
 				PreparedStatement pstmt = conn.prepareStatement(sql);
-
 				ResultSet rset2 = pstmt.executeQuery();
-
 				return rset2;
-			}			
-			
-		
+			}					
 		}
 		return null;
 	}
-
-
 
 
 	public ResultSet search_images(Connection conn, String record_id) throws IOException, SQLException{
@@ -185,9 +159,6 @@ public class sqlcontroller{
 		catch(Exception ex){
 			return null;
 		}
-
 	}
 
-
-	
 }
