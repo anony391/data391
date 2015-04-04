@@ -188,7 +188,7 @@ public class CreateNewRadiology extends HttpServlet {
 			response_message = ex.getMessage();
 			}
 
-				//Output response to the client if image uploaded properly			response.setContentType("text/html");
+				
 			PrintWriter out = response.getWriter();
 			out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 " +
 				"Transitional//EN\">\n" +
@@ -205,8 +205,10 @@ public class CreateNewRadiology extends HttpServlet {
 
 		//This creates a connection to database for insertion of picture
 	public Connection mkconn(){
-		String USER = "ckchan"; 	//Change these parameters when testing to your oracle password :)
-		String PASSWORD = "oretachinosong8";
+
+		String USER = ""; 	//Change these parameters when testing to your oracle password :)
+		String PASSWORD = "";
+
 		Connection conn = null;
 		String driverName = "oracle.jdbc.driver.OracleDriver";
 		String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";

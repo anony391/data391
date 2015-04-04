@@ -26,7 +26,7 @@
 </script>
 
 <body>
-<% 	String login_class = (String) session.getAttribute("login_class");
+<% 	String login_class = (String) session.getAttribute("login_class");	//checks if logged in and can access this page
 	if (login_class == null){
 		out.println("You are not authorized to access this page.");
 		out.println("<li><a href=\"Home_Menu.jsp\">Return</li>");

@@ -128,8 +128,10 @@ public class UpdateRadiology extends HttpServlet {
 
 		//This creates a connection to database for insertion of picture
 	public Connection mkconn(){
-		String USER = "ckchan"; 	//Change these parameters when testing to your oracle password :)
-		String PASSWORD = "oretachinosong8";
+
+		String USER = ""; 	//Change these parameters when testing to your oracle password :)
+		String PASSWORD = "";
+
 		Connection conn = null;
 		String driverName = "oracle.jdbc.driver.OracleDriver";
 		String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";

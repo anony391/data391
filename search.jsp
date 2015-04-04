@@ -4,20 +4,20 @@
 <%@ page import="sqlcontrol.*"%>
 
 
-<%
-	String login_class = (String) session.getAttribute("login_class");
+<%											//Checks if logged in. rejects if not logged in.
+	String login_class = (String) session.getAttribute("login_class");	
 	String id_number = (String) session.getAttribute("id_number");
 	if (login_class == null){
 		out.println("You are not authorized to access this page.");
 		out.println("<li><a href=\"Home_Menu.jsp\">Return</li>");
 
 	}
-	else{out.println("<table align=left valign=top><li><a href=\"Home_Menu.jsp\">HOME</li></a></table>");
+	else{out.println("<table align=left valign=top><li><a href=\"Home_Menu.jsp\">HOME</li></a></table>");	//homelink
 %>
 <%@ include file="Search_database.html"%>
 <%}%>
-<% 		
-	if (request.getParameter("search") != null){
+<% 											//if entered key word to search do this
+	if (request.getParameter("search") != null){				
 		login_class = (String) session.getAttribute("login_class");
 		id_number = (String) session.getAttribute("id_number");
 		connmaker cn = null;
@@ -43,9 +43,9 @@
 			if(query.equals("") && rankType.equals("keywords")){
 				out.println("<b>ERROR: No Keywords Entered. Cannot Rank by keywords!! </b><br>");
 			}
-			rset = scontroller.search_database(conn, query, toDate, fromDate, rankType, id_number, login_class);
+			rset = scontroller.search_database(conn, query, toDate, fromDate, rankType, id_number, login_class);			//calls sqlcontroller to grab resultset of search input
 			String p_id = null;
-			out.println("<table border=1 valign=bottom align=center>");
+			out.println("<table border=1 valign=bottom align=center>");					//print out result set in tables
 			out.println("<b>Results for '"+query+"' Ranked by " +rankType+"</b>");
 			out.println("dates between "+fromDate+" to "+toDate);
 			out.println("<tr>");
@@ -98,7 +98,7 @@
 					p_id = image_id+","+record_id;
 					out.println("<tr>");
 					out.println("<td>"); 
-					out.println("<a href=\"/data391/servlet/GetBigPic?"+p_id+"\">");
+					out.println("<a href=\"/data391/servlet/GetBigPic?"+p_id+"\">");			//to access images
 					out.println("<img src=\"/data391/servlet/GetOnePic?"+p_id+"\"></a>");
 					out.println("</td>");
 					out.println("<td>"); 
