@@ -14,7 +14,16 @@ import oracle.jdbc.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+/**
 
+Code was based on http://webdocs.cs.ualberta.ca/~yuan/servlets/UploadImage.java
+ *  Author:  Fan Deng
+and http://luscar.cs.ualberta.ca:8080/yuan/UploadImageLogicSQL.java
+@author  Li-Yan Yuan
+
+
+
+*//
 //** Jar taken from http://www.servlets.com/cos/ **//
 public class CreateNewRadiology extends HttpServlet {
 	SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");

@@ -5,6 +5,9 @@ import java.sql.*;
 import java.util.Arrays;
 import java.util.List;
 /**
+** 	This was based on code from http://luscar.cs.ualberta.ca:8080/yuan/GetBigPic.java
+*
+*
  *  This servlet sends one picture stored in the table below to the client 
  *  who requested the servlet.
  *

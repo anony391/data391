@@ -5,11 +5,13 @@ import java.sql.*;
 import java.util.Arrays;
 import java.util.List;
 /**
+* 	This was based on code from http://luscar.cs.ualberta.ca:8080/yuan/GetOnePic.java
+*
+*
+*
  *  This servlet sends one picture stored in the table below to the client 
  *  who requested the servlet.
  *
- *   picture( photo_id: integer, title: varchar, place: varchar, 
- *            sm_image: blob,   image: blob )
  *
  *  The request must come with a query string as follows:
  *    GetOnePic?12:        sends the picture in sm_image with photo_id = 12
