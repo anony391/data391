@@ -3,7 +3,7 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="sqlcontrol.*"%>
 <% 	
-
+	//Class authorization
 	String login_class = (String) session.getAttribute("login_class");
 	if (login_class == null){
 		out.println("You are not authorized to access this page.");
@@ -14,6 +14,7 @@
 		Connection conn = null;
 		sqlcontroller scontroller= null;
 		String userName = (String) session.getAttribute("userID");
+
 		if (userName != null) {
 			connmaker cn = new connmaker();
 			conn = cn.mkconn(); 	//creates a connection with database

@@ -4,8 +4,12 @@ Follow the steps below to install:
 2.Change directory to data391/WEB-INF/classes/connectionmaker
 3.Open connmaker.java and modify lines 10 and 11 with your oracle username and password
 4.Change directory back to data391/WEB-INF/classes
-5.Type ¡§make¡¨ to compile all java files
-6.Change directory back to the parent folder (i.e. data391/)
-7.Run sql script ¡§setup.sql¡¨ to create the necessary sequences and views
-8.Start tomcat and go to the login page: http://u***.cs.ualberta.ca:<port-number>/data391/LoginModule.html
+5.Modify all username and passwords to your oracle and username password
+6.On line 50 of "CreateNewRadiology.java" change <CCID> to your CCID, and do the same on line 40 of "UpdateRadiology.java"
+7.Change directory back to data391/
+8.Open the make file and replace all <CCID> to your CCID.
+9.Type "make" to compile all java files
+10.Run sql script "index.sql" to create the indexes
+11.Run sql script "setup.sql" to create the necessary sequences and views
+12.Start tomcat and go to the login page: http://u***.cs.ualberta.ca:<port-number>/data391/LoginModule.html
 (where u*** is the host computer)
