@@ -5,7 +5,7 @@
 </head>
 
 <title>Upload Example</title>
-<script language="JavaScript">//This was taken from http://www.javacodegeeks.com/2013/01/spring-mvc-3-upload-multiple-files.html
+<script language="JavaScript">//This was taken from http://www.javacodegeeks.com/2013/01/spring-mvc-3-upload-multiple-files.html @author: Srinivas Ovn
 	var count=0;
 	function add(type) {
 		//Create an input type dynamically.
