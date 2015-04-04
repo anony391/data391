@@ -2,9 +2,24 @@
 <%@ page import="java.sql.*, java.util.*" %>
 <%@ page import="connectionmaker.*"%>
 <%@ page import="sqlcontrol.*"%>
+
+
+<%
+	String login_class = (String) session.getAttribute("login_class");
+	String id_number = (String) session.getAttribute("id_number");
+	if (login_class == null){
+		out.println("You are not authorized to access this page.");
+		out.println("<li><a href=\"Home_Menu.jsp\">Return</li>");
+
+	}
+	else{out.println("<table align=left valign=top><li><a href=\"Home_Menu.jsp\">HOME</li></a></table>");
+%>
 <%@ include file="Search_database.html"%>
+<%}%>
 <% 		
 	if (request.getParameter("search") != null){
+		login_class = (String) session.getAttribute("login_class");
+		id_number = (String) session.getAttribute("id_number");
 		connmaker cn = null;
 		Connection conn = null;
 		sqlcontroller scontroller = null;
@@ -14,7 +29,6 @@
 		String rankType = request.getParameter("rankType");
 		ResultSet rset = null;
 		ResultSet rset2 = null;
-		//usertype = session.getAttribute("userType");
 
 		try{
 			cn = new connmaker();
@@ -29,7 +43,7 @@
 			if(query.equals("") && rankType.equals("keywords")){
 				out.println("<b>ERROR: No Keywords Entered. Cannot Rank by keywords!! </b><br>");
 			}
-			rset = scontroller.search_database(conn, query, toDate, fromDate, rankType);
+			rset = scontroller.search_database(conn, query, toDate, fromDate, rankType, id_number, login_class);
 			String p_id = null;
 			out.println("<table border=1 valign=bottom align=center>");
 			out.println("<b>Results for '"+query+"' Ranked by " +rankType+"</b>");
@@ -86,6 +100,10 @@
 					out.println("<td>"); 
 					out.println("<a href=\"/data391/servlet/GetBigPic?"+p_id+"\">");
 					out.println("<img src=\"/data391/servlet/GetOnePic?"+p_id+"\"></a>");
+					out.println("</td>");
+					out.println("<td>"); 
+					out.println("<a href=\"/data391/servlet/GetFullPic?"+p_id+"\">");
+					out.println("FullSize</a>");
 					out.println("</td>");
 					out.println("</tr>"); 
 				}

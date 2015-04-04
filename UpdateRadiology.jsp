@@ -38,11 +38,10 @@
 		out.println("<li><a href=\"Home_Menu.jsp\">Return</li>");
 	}
 
-	else{
-out.println("<table align=left valign=top><li><a href=\"Home_Menu.jsp\">HOME</li></a></table>");
+	else{out.println("<table align=left valign=top><li><a href=\"Home_Menu.jsp\">HOME</li></a></table>");
 
 %>
-  <%@ include file="new_radiology_record.html"%><%}%>
+  <%@ include file="ImageUpload.html"%><%}%>
 	<TABLE id="fileUploadTable">
 	<!--td><form:label for="fileData" path="fileData">File</form:label><br />
 	</td>

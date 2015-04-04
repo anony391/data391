@@ -5,13 +5,14 @@ import java.sql.*;
 import java.util.Arrays;
 import java.util.List;
 /**
-* 	This was based on code from http://luscar.cs.ualberta.ca:8080/yuan/GetOnePic.java
-*
+** 	This was based on code from http://luscar.cs.ualberta.ca:8080/yuan/GetBigPic.java
 *
 *
  *  This servlet sends one picture stored in the table below to the client 
  *  who requested the servlet.
  *
+ *   picture( photo_id: integer, title: varchar, place: varchar, 
+ *            sm_image: blob,   image: blob )
  *
  *  The request must come with a query string as follows:
  *    GetOnePic?12:        sends the picture in sm_image with photo_id = 12
@@ -20,7 +21,7 @@ import java.util.List;
  *  @author  Li-Yan Yuan
  *
  */
-public class GetOnePic extends HttpServlet 
+public class GetFullPic extends HttpServlet 
     implements SingleThreadModel {
 
     /**
@@ -35,9 +36,8 @@ public class GetOnePic extends HttpServlet
 	throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		if (session == null) {
-	    			response.sendRedirect("Home_Menu.jsp");
+	    		response.sendRedirect("Home_Menu.jsp");
 		}
-			
 		//  construct the query  from the client's QueryString
 		String req  = request.getQueryString();
 		List<String> items = Arrays.asList(req.split("\\s*,\\s*"));
@@ -53,7 +53,7 @@ public class GetOnePic extends HttpServlet
 		    	conn = mkconn();
 			PreparedStatement pstmt = null;
 				//grab image
-			pstmt = conn.prepareStatement("select thumbnail from pacs_images where record_id = ? AND image_id = ?");
+			pstmt = conn.prepareStatement("select full_size from pacs_images where record_id = ? AND image_id = ?");
 			pstmt.setInt(1,radiology_id);
 			pstmt.setInt(2,image_id);
 			ResultSet rset = pstmt.executeQuery();
@@ -102,6 +102,6 @@ public class GetOnePic extends HttpServlet
 			catch(Exception ex){
 			  return null;
 			}
-		}
+	}
 }
 

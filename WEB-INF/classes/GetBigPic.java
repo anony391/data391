@@ -34,71 +34,74 @@ public class GetBigPic extends HttpServlet
     public void doGet(HttpServletRequest request,
 		      HttpServletResponse response)
 	throws ServletException, IOException {
-	
-	//  construct the query  from the client's QueryString
-	String req  = request.getQueryString();
-	List<String> items = Arrays.asList(req.split("\\s*,\\s*"));
-	int radiology_id = Integer.parseInt(items.get(1));
-	int image_id = Integer.parseInt(items.get(0));
-	ServletOutputStream out = response.getOutputStream();
-
-	/*
-	 *   to execute the given query
-	 */
-	Connection conn = null;
-	try {
-	    	conn = mkconn();
-		PreparedStatement pstmt = null;
-			//grab image
-		pstmt = conn.prepareStatement("select regular_size from pacs_images where record_id = ? AND image_id = ?");
-		pstmt.setInt(1,radiology_id);
-		pstmt.setInt(2,image_id);
-		ResultSet rset = pstmt.executeQuery();
-
-	try {
-	    if ( rset.next()) {
-		response.setContentType("image/gif");
-		InputStream input = rset.getBinaryStream(1); 
-		int imageByte;
-		while((imageByte = input.read()) != -1) {
-		    out.write(imageByte);
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+	    		response.sendRedirect("Home_Menu.jsp");
 		}
-		input.close();
-	    } 
-	    else 
-		out.println("no picture available");}
-	 catch( Exception ex ) {
-	    out.println(ex.getMessage() );
-	}
-	} catch( Exception ex ) {
-	    out.println(ex.getMessage() );
-	}
-	// to close the connection
-	finally {
-	    try {
-		conn.close();
-	    } catch ( SQLException ex) {
-		out.println( ex.getMessage() );
-	    }
-	}
-    }
-		//This creates a connection to database for insertion of picture
-	public Connection mkconn(){
-		String USER = ""; 	//Change these parameters when testing to your oracle password :)
-		String PASSWORD = "";
+		//  construct the query  from the client's QueryString
+		String req  = request.getQueryString();
+		List<String> items = Arrays.asList(req.split("\\s*,\\s*"));
+		int radiology_id = Integer.parseInt(items.get(1));
+		int image_id = Integer.parseInt(items.get(0));
+		ServletOutputStream out = response.getOutputStream();
+
+		/*
+		 *   to execute the given query
+		 */
 		Connection conn = null;
-		String driverName = "oracle.jdbc.driver.OracleDriver";
-		String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
-		try{
-		  Class drvClass = Class.forName(driverName);
-		  DriverManager.registerDriver((Driver) drvClass.newInstance());
-		  conn = DriverManager.getConnection(dbstring, USER, PASSWORD); 
-		  conn.setAutoCommit(false);
-		  return conn;
+		try {
+		    	conn = mkconn();
+			PreparedStatement pstmt = null;
+				//grab image
+			pstmt = conn.prepareStatement("select regular_size from pacs_images where record_id = ? AND image_id = ?");
+			pstmt.setInt(1,radiology_id);
+			pstmt.setInt(2,image_id);
+			ResultSet rset = pstmt.executeQuery();
+
+		try {
+		    if ( rset.next()) {
+			response.setContentType("image/gif");
+			InputStream input = rset.getBinaryStream(1); 
+			int imageByte;
+			while((imageByte = input.read()) != -1) {
+			    out.write(imageByte);
+			}
+			input.close();
+		    } 
+		    else 
+			out.println("no picture available");}
+		 catch( Exception ex ) {
+		    out.println(ex.getMessage() );
 		}
-		catch(Exception ex){
-		  return null;
+		} catch( Exception ex ) {
+		    out.println(ex.getMessage() );
 		}
+		// to close the connection
+		finally {
+		    try {
+			conn.close();
+		    } catch ( SQLException ex) {
+			out.println( ex.getMessage() );
+		    }
+		}
+	    }
+			//This creates a connection to database for insertion of picture
+		public Connection mkconn(){
+			String USER = ""; 	//Change these parameters when testing to your oracle password :)
+			String PASSWORD = "";
+			Connection conn = null;
+			String driverName = "oracle.jdbc.driver.OracleDriver";
+			String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
+			try{
+			  Class drvClass = Class.forName(driverName);
+			  DriverManager.registerDriver((Driver) drvClass.newInstance());
+			  conn = DriverManager.getConnection(dbstring, USER, PASSWORD); 
+			  conn.setAutoCommit(false);
+			  return conn;
+			}
+			catch(Exception ex){
+			  return null;
+			}
 	}
 }
 

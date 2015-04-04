@@ -8,28 +8,37 @@
 Connection connec = null;
 sqlcontroller sqlContrl = new sqlcontroller();
 try {	//extracting updateuser info
-
+	String id_number;
 	String classType;
 	connmaker cnmake = new connmaker();
 	connec = cnmake.mkconn(); //creates a connection with database
 	String user_name = (String) session.getAttribute("userID");
-	
-	classType = sqlContrl.classOfUser(connec,user_name);
+	if (user_name != null){
+		classType = sqlContrl.classOfUser(connec,user_name);
+		id_number = sqlContrl.IdOfUser(connec,user_name);
 
-	if (classType != null) {
+		if (classType != null) {
+			session.setAttribute("id_number",id_number);
 
-		if (classType.equals("a")){		
-%> <%@ include file="Home_SystemAdminstrator.html"%>
-<% 		} else if (classType.equals("r")){
-%> <%@ include file="Home_Radiology.html"%>
-<% 		} else if (classType.equals("d")){
-%> <%@ include file="Home_Doctor.html"%>
-<% 		} else if (classType.equals("p")){
-%> <%@ include file="Home_User.html"%>
-<%		}
+			if (classType.equals("a")){
+				session.setAttribute( "login_class", "a" );		
+	%> 			<%@ include file="Home_SystemAdminstrator.html"%>
+	<% 		} else if (classType.equals("r")){
+				session.setAttribute( "login_class", "r" );
+	%> 			<%@ include file="Home_Radiology.html"%>
+	<% 		} else if (classType.equals("d")){
+				session.setAttribute( "login_class", "d" );
+	%> 			<%@ include file="Home_Doctor.html"%>
+	<% 		} else if (classType.equals("p")){
+				session.setAttribute( "login_class", "p" );
+	%> 			<%@ include file="Home_User.html"%>
+	<%		}
 
-	} else { %>
-<%@ include file="LoginModule.html"%>
+		}
+	} 
+
+	else { %>
+		<%@ include file="LoginModule.html"%>
 <%	}
 
 }
@@ -37,7 +46,7 @@ catch(Exception ex){
 out.println("<hr>"+ ex.getMessage() + "<hr>");
 }
 
-	connec.close();	
+connec.close();	
 %>
 </BODY>
 </HTML>

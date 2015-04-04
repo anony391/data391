@@ -25,20 +25,10 @@ and http://luscar.cs.ualberta.ca:8080/yuan/UploadImageLogicSQL.java
 
 */
 //** Jar taken from http://www.servlets.com/cos/ **//
-public class CreateNewRadiology extends HttpServlet {
+public class UpdateRadiology extends HttpServlet {
 	SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
-	public String response_message;
-	private String grab_value;
 	private int radiology_id;
-	private int patient_id;
-	private int doctor_id;
-	private int radiologist_id;
-	private String test_type;
-	private String prescribing_date;
-	private String test_date;
-	private String diagnosis;
-	private String description;
-	private int image_id;
+	String response_message;
 	public void doPost(HttpServletRequest req, HttpServletResponse response)
                                 throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
@@ -49,81 +39,14 @@ public class CreateNewRadiology extends HttpServlet {
 				// Create new Multirequest to write in temp file
 			MultipartRequest request = new MultipartRequest(req, "/cshome/rdejesus/catalina/temp", 5 * 1024 * 1024);
 				// Grab all parameters from form
-			String grab_value = request.getParameter("PATIENTID");
-			response.setContentType("text/html");
-			PrintWriter out = response.getWriter();
-			patient_id = Integer.parseInt(grab_value);
-
-			grab_value = request.getParameter("DOCTORID");
-			doctor_id = Integer.parseInt(grab_value);
-
-			grab_value = request.getParameter("RADIOLOGISTID");
-			radiologist_id = Integer.parseInt(grab_value);
-
-			String test_type = request.getParameter("TEST_TYPE");
-
-			String prescribing_date = request.getParameter("PRESCRIBINGDATE");
-
-     			Date parsed_date = format.parse(prescribing_date);
-        		java.sql.Date pres_date = new java.sql.Date(parsed_date.getTime());
-
-			String test_date = request.getParameter("TESTDATE");
-
-     			parsed_date = format.parse(test_date);
-        		java.sql.Date tes_date = new java.sql.Date(parsed_date.getTime());
-
-			String diagnosis = request.getParameter("DIAGNOSIS");
-			String description = request.getParameter("DESCRIPTION");
-
-
+			String grab_value = request.getParameter("RECORDID");
+			radiology_id = Integer.parseInt(grab_value);
 			//create new connection
 			Connection conn = mkconn();
 			PreparedStatement pstmt = null;
-
-			pstmt = conn.prepareStatement("SELECT class FROM users WHERE person_id = ?");
-			pstmt.setInt(1,doctor_id);
-			ResultSet rset = pstmt.executeQuery();	
-			rset.next();		
-			String class_type = rset.getString(1);
-			if (!(class_type.equals("d"))){
-				throw new IOException("Doctor ID entered is not a doctor in the system");
-			}
-			
-			pstmt = conn.prepareStatement("SELECT class FROM users WHERE person_id = ?");
-			pstmt.setInt(1,radiologist_id);
-			rset = pstmt.executeQuery();
-			rset.next();		
-			class_type = rset.getString(1);
-			if (!(class_type.equals("r"))){
-				throw new IOException("Radiologist ID entered is not a radiologist in the system");
-			}
-
-
-			//grab new radiology report id
-			pstmt = conn.prepareStatement("LOCK TABLE radiology_record IN EXCLUSIVE MODE");
-			pstmt.executeUpdate();
-			pstmt = conn.prepareStatement("SELECT COUNT(*) FROM radiology_record");
-			ResultSet rset1 = pstmt.executeQuery();
-			rset1.next();
-			radiology_id = rset1.getInt(1);
-			radiology_id++;
-			//insert new radiology report
-			String sql = ("INSERT INTO radiology_record(record_id,patient_id,doctor_id,radiologist_id,test_type,prescribing_date,test_date,diagnosis, description)"
-						+ " values (?,?,?,?,?,?,?,?,?)");
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1,radiology_id);
-			pstmt.setInt(2,patient_id);
-			pstmt.setInt(3,doctor_id);
-			pstmt.setInt(4,radiologist_id);
-			pstmt.setString(5,test_type);
-			pstmt.setDate(6,pres_date);
-			pstmt.setDate(7,tes_date);
-			pstmt.setString(8,diagnosis);
-			pstmt.setString(9,description);
-			pstmt.execute();
-			conn.commit();
-				//close statements   
-			pstmt.close();
+			ResultSet rset1;
+			int image_id;
+			String sql;
 
 			// Grab Image Files
 			Enumeration files = request.getFileNames();
@@ -183,23 +106,23 @@ public class CreateNewRadiology extends HttpServlet {
 				conn.close();
 				response_message = "The Images Have been Uploaded";
 
-			}
-			catch (Exception ex) {
+		}
+		catch (Exception ex) {
 			response_message = ex.getMessage();
-			}
+		}
 
 				//Output response to the client if image uploaded properly			response.setContentType("text/html");
-			PrintWriter out = response.getWriter();
-			out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 " +
-				"Transitional//EN\">\n" +
-				"<HTML>\n" +
-				"<HEAD><TITLE>Upload Message</TITLE></HEAD>\n" +
-				"<BODY>\n" +
-				"<H1>" +
-					response_message +
-				"</H1>\n" +
-				"</BODY></HTML>");
-			out.println("<li><a href=\"Home_Menu.jsp\">Return</li>");
+		PrintWriter out = response.getWriter();
+		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 " +
+			"Transitional//EN\">\n" +
+			"<HTML>\n" +
+			"<HEAD><TITLE>Upload Message</TITLE></HEAD>\n" +
+			"<BODY>\n" +
+			"<H1>" +
+				response_message +
+			"</H1>\n" +
+			"</BODY></HTML>");
+		out.println("<li><a href=\"Home_Menu.jsp\">Return</li>");
 
 	}
 
