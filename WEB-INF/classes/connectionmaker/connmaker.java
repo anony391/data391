@@ -7,8 +7,8 @@ import java.io.IOException;
 
 /*This method creates a connection to connect to oracle*/
 public class connmaker{
-  String USER = ""; //Change these parameters when testing to your oracle password :)
-  String PASSWORD = "1";
+  String USER = "rdejesus"; //Change these parameters when testing to your oracle password :)
+  String PASSWORD = "Ihateyou1";
   public Connection mkconn(){
     Connection conn = null;
     String driverName = "oracle.jdbc.driver.OracleDriver";
