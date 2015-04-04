@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>User Manual</title>
+    <link rel="stylesheet" type="text/css" href="../RadiologyDatabase.css">
+</head>
+<body>
+<!--Navigation menu -->
+<div id="menu">
+    <ul>
+        <li><a href="../Home_Menu.jsp">Home Menu</a></li>
+        <li><a href="./UserManual.html">UserManual</a></li>
+	<li><a href="./Installation.html">Installation</a></li>
+        <li><a href="./LoginManual.html">Login Module</a></li>
+        <li><a href="./UserManagementManual.html">User Management Module</a></li>
+        <li><a href="./ReportManual.html">Report Generating Module</a></li>
+        <li><a href="./UploadManual.html">Uploading Module</a></li>
+        <li><a href="./SearchManual.html">Search Module</a></li>
+        <li><a href="./AnalysisManual.html">Data Analysis Module</a></li>
+    </ul>
+</div>
+
+<h2>Installation instructions</h2>
+<p id="desc"> These are installation instructions to setup this application</p>
+
+<ol>
+    <li>Extract archive file containing the project</li>
+    <li>Change directory to data391/WEB-INF/classes/connectionmaker</li>
+    <li>Open connmaker.java and modify lines 10 and 11 with your oracle username and password</li>
+    <li>Change directory back to data391/WEB-INF/classes</li>
+    <li>Modify all username and passwords to your oracle and username password</li>
+    <li>On line 50 of "CreateNewRadiology.java" change <CCID> to your CCID, and do the same on line 40 of "UpdateRadiology.java"</li>
+    <li>Change directory back to data391/</li>
+    <li>Open the make file and replace all <CCID> to your CCID.</li>
+    <li>Type "make" to compile all java files</li>
+    <li>Run sql script "index.sql" to create the indexes</li>
+    <li>Run sql script "setup.sql" to create the necessary sequences and views</li>
+    <li>Start tomcat and go to the login page: http://u***.cs.ualberta.ca:<port-number>/data391/LoginModule.html (where u*** is the host computer)</li>
+</ol>
+
+</body>
+</html>

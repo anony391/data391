@@ -6,18 +6,22 @@
 Connection conn = null;
 if(request.getParameter("Submit") != null) {	//extracting person id
 	out.println("<table align=left valign=top><li><a href=\"Home_Menu.jsp\">HOME</li></a></table>");
-	String person_id = (request.getParameter("USERID").trim());
-	session.setAttribute( "personID", person_id );
+	String userName = (request.getParameter("USERID").trim());
+	
 	connmaker cn = new connmaker();
         conn = cn.mkconn(); 	//creates a connection with database
 	Statement stmt = null;
 	ResultSet rset = null;
-	String sqlstring = "SELECT * FROM users u,persons p,family_doctor d WHERE p.person_id = u.person_id AND p.person_id = d.patient_id AND p.person_id='"+person_id+"'";
+	String sqlstring = "SELECT * FROM users u,persons p,family_doctor d WHERE p.person_id = u.person_id AND p.person_id = d.patient_id AND u.user_name='"+userName+"'";
 
         stmt = conn.createStatement();
         rset = stmt.executeQuery(sqlstring);
 
     	if (rset != null && rset.next()){
+		String person_id = rset.getString("person_id").trim();
+		session.setAttribute( "personID", person_id );
+
+
 		/*Get user info*/
 
 		String oldPass = rset.getString("password").trim();

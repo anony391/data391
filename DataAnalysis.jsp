@@ -19,6 +19,7 @@ if(request.getParameter("Submit") != null) {	//extracting logininfo
     String dataCube = "GROUP BY CUBE (";
     String description = "Displaying number of images for each ";
 
+    //This will add the attributes according to what the user has selected
     if ((patient != null) && (patient.equals("True"))) {
         String nameParam = " first_name, last_name,";
         sqlString += nameParam;
@@ -50,11 +51,11 @@ if(request.getParameter("Submit") != null) {	//extracting logininfo
              description += " week,";
      }
 
-    dataCube = dataCube.replaceAll(",$", "");
+    dataCube = dataCube.replaceAll(",$", ""); //Delete the last comma
     dataCube += ")";
     description = description.replaceAll(",$", ":");
     sqlString += " COUNT(image_id) FROM analysis_view ";
-    sqlString += dataCube;
+    sqlString += dataCube; //Add data cube to create final sql statement
 
     try{
 	cn = new connmaker();
@@ -79,16 +80,18 @@ if(request.getParameter("Submit") != null) {	//extracting logininfo
     }
 
     out.println(description);
+    //Print out each result set
     while (rset != null && rset.next()) { 
 	String first = "";
 	String last = "";
 	String testType = ""; 
 	String time = "";
 	
+	//Does not print out anything that has a null value
 	if (patient != null) {
 		first = rset.getString("first_name");
 		last = rset.getString("last_name");
-
+	
 		if ((first == null) || (last == null)) {
 			continue;
 		}
@@ -109,12 +112,12 @@ if(request.getParameter("Submit") != null) {	//extracting logininfo
 	}
 	String count = rset.getString("COUNT(image_id)");
 
+	//Print table to display result
 	out.println("<br>");
-	out.println("<table style='width:50%'>");
-	out.println("<tr><td>Patient: </td><td>"+first+""+last+"</td>");
-	out.println("<td>Test type: </td><td>"+testType+"</td>");
-	out.println("<td>Time period: </td><td>"+time+"</td></tr>");
-	out.println("<td>Count: </td><td>"+count+"</td>");
+	out.println("<table border='1'>");
+	out.println("<col width='100px'><col width='100px'><col width='100px'><col width='100px'>");
+	out.println("<tr><td>Patient: </td><td>Test type: </td><td>Time period: </td><td>Count: </td></tr>");
+	out.println("<td>"+first+""+last+"</td><td>"+testType+"</td><td>"+time+"</td><td>"+count+"</td></tr>");
         out.println("</table>");
     } 
 
@@ -123,7 +126,9 @@ if(request.getParameter("Submit") != null) {	//extracting logininfo
 }
 
 else{ %>
-<% 	String login_class = (String) session.getAttribute("login_class");
+<% 	
+	//Check authorization
+	String login_class = (String) session.getAttribute("login_class");
 	if (login_class == null){
 		out.println("You are not authorized to access this page.");
 		out.println("<li><a href=\"Home_Menu.jsp\">Return</li>");

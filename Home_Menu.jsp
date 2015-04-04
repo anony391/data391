@@ -10,13 +10,15 @@ sqlcontroller sqlContrl = new sqlcontroller();
 try {	//extracting updateuser info
 	String id_number;
 	String classType;
+
 	connmaker cnmake = new connmaker();
 	connec = cnmake.mkconn(); //creates a connection with database
 	String user_name = (String) session.getAttribute("userID");
+	
 	if (user_name != null){
 		classType = sqlContrl.classOfUser(connec,user_name);
 		id_number = sqlContrl.IdOfUser(connec,user_name);
-
+		//Redirect user to the home pages of their corresponding class
 		if (classType != null) {
 			session.setAttribute("id_number",id_number);
 

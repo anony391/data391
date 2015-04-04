@@ -37,7 +37,7 @@ public class UpdateRadiology extends HttpServlet {
 		}
 		try {
 				// Create new Multirequest to write in temp file
-			MultipartRequest request = new MultipartRequest(req, "/cshome/rdejesus/catalina/temp", 5 * 1024 * 1024);
+			MultipartRequest request = new MultipartRequest(req, "/cshome/<CCID>/catalina/temp", 5 * 1024 * 1024);
 				// Grab all parameters from form
 			String grab_value = request.getParameter("RECORDID");
 			radiology_id = Integer.parseInt(grab_value);
@@ -128,8 +128,8 @@ public class UpdateRadiology extends HttpServlet {
 
 		//This creates a connection to database for insertion of picture
 	public Connection mkconn(){
-		String USER = ""; 	//Change these parameters when testing to your oracle password :)
-		String PASSWORD = "";
+		String USER = "ckchan"; 	//Change these parameters when testing to your oracle password :)
+		String PASSWORD = "oretachinosong8";
 		Connection conn = null;
 		String driverName = "oracle.jdbc.driver.OracleDriver";
 		String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";

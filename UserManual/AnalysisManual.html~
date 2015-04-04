@@ -21,7 +21,7 @@
 </div>
 
 <h2>Data Analysis Manual</h2>
-<p>This module will be used by the system administrator to generate and display
+<p id="desc">This module will be used by the system administrator to generate and display
     an OLAP report for data analysis. A user of this module may choose to display
     the number of images for each patient, test type, and/or period of time.</p>
 

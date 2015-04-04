@@ -18,7 +18,7 @@ if(request.getParameter("Submit") != null) {	//extracting updateuser info
 
 
 
-		    /*Get updated user info*/
+        /*Get updated user info*/
 	String username = (request.getParameter("USERID").trim());
 	String firstName = (request.getParameter("FIRSTNAME").trim());
 	String lastName = (request.getParameter("LASTNAME").trim());
@@ -28,11 +28,12 @@ if(request.getParameter("Submit") != null) {	//extracting updateuser info
 	String classString = (request.getParameter("CLASS").trim()).toLowerCase();
 	String doctor = (request.getParameter("DOCTOR").trim());
 	char classType = classString.charAt(0);
+
 	connmaker cn = new connmaker();
 	conn = cn.mkconn(); 	//creates a connection with database
     	String doctor_class = sqlContrl.classOfUserID(conn,doctor);
 
-	if (!(doctor_class.equals("d"))){
+	if ((!(doctor_class.equals("d"))) && (doctor != "")){
 		out.println("Doctor ID Entered is not associated with a doctor in the system.");
 
 	}
@@ -59,7 +60,9 @@ if(request.getParameter("Submit") != null) {	//extracting updateuser info
 		                    " WHERE patient_id='"+person_id+"'";
 
 		    stmt = conn.createStatement();
-		    stmt.executeUpdate(doctorUpdateSql);
+		    if (doctor != "") {
+		   	stmt.executeUpdate(doctorUpdateSql);
+		    }
 		    stmt.executeUpdate(userUpdateSql);
 		    stmt.executeUpdate(personUpdateSql);
 
@@ -91,13 +94,17 @@ if(request.getParameter("Submit") != null) {	//extracting updateuser info
 		    "(person_id, first_name, last_name, address, email, phone)" +
 		    "VALUES ('"+person_id+"','"+firstName+"','"+lastName+"'," + 
 			"'"+address+"','"+email+"','"+phone+"')";
+
 		String doctorInsertSql = "INSERT INTO family_doctor" +
 		    "(doctor_id, patient_id) VALUES ('"+doctor+"', '"+person_id+"')";
 	
 		    stmt = conn.createStatement();
 		    stmt.executeUpdate(personInsertSql);
 		    stmt.executeUpdate(userInsertSql);
-		    stmt.executeUpdate(doctorInsertSql);
+
+		    if (doctor != "") {
+		    	stmt.executeUpdate(doctorInsertSql);
+		    }
 
 		conn.close();
 		out.println("Account was successfully created.");

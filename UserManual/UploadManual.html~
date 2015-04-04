@@ -21,7 +21,7 @@
 </div>
 
 <h2>Uploading Manual</h2>
-<p>This module will be used by radiologists to first enter a radiology record,
+<p id="desc">This module will be used by radiologists to first enter a radiology record,
     and then to upload medical images into the radiology record.
     A radiology record can be created without uploading an image,
     and additional images can be added later to a record.</p>
