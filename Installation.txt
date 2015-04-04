@@ -1,0 +1,11 @@
+Installation
+Follow the steps below to install:
+1.Extract archive file containing the project
+2.Change directory to data391/WEB-INF/classes/connectionmaker
+3.Open connmaker.java and modify lines 10 and 11 with your oracle username and password
+4.Change directory back to data391/WEB-INF/classes
+5.Type ¡§make¡¨ to compile all java files
+6.Change directory back to the parent folder (i.e. data391/)
+7.Run sql script ¡§setup.sql¡¨ to create the necessary sequences and views
+8.Start tomcat and go to the login page: http://u***.cs.ualberta.ca:<port-number>/data391/LoginModule.html
+(where u*** is the host computer)

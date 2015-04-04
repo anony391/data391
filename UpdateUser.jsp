@@ -3,9 +3,19 @@
 <%@ page import="java.sql.*"%>
 <%
 Connection conn = null;
-if(request.getParameter("Submit") != null) {	//extracting person id
-    String person_id = (request.getParameter("PERSONID").trim());
-    session.setAttribute( "personID", person_id );
+String submit = request.getParameter("Submit");
+
+String userName;
+if (submit != null) {
+	userName = request.getParameter("USERID");
+
+} else {
+
+	userName = (String) session.getAttribute("userID");
+}
+
+if (userName != null) {
+
     try{
 	connmaker cn = new connmaker();
         conn = cn.mkconn(); 	//creates a connection with database
@@ -16,7 +26,7 @@ if(request.getParameter("Submit") != null) {	//extracting person id
 
     Statement stmt = null;
     ResultSet rset = null;
-    String sqlstring = "SELECT * FROM users u,persons p,family_doctor d WHERE p.person_id = u.person_id AND p.person_id = d.patient_id AND p.person_id='"+person_id+"'";
+    String sqlstring = "SELECT * FROM users u,persons p,family_doctor d WHERE p.person_id = u.person_id AND p.person_id = d.patient_id AND u.user_name='"+userName+"'";
     try{
 
         stmt = conn.createStatement();
@@ -29,7 +39,11 @@ if(request.getParameter("Submit") != null) {	//extracting person id
     }
 
     if (rset != null && rset.next()){
+
 	/*Get user info*/
+	String person_id = rset.getString("person_id").trim();
+	session.setAttribute( "personID", person_id );
+
         String username = rset.getString("user_name").trim();
         String firstName = rset.getString("first_name").trim();
         String lastName = rset.getString("last_name").trim();

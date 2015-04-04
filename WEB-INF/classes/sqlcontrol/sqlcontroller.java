@@ -32,16 +32,43 @@ public class sqlcontroller{
 	    return false;
 	}
 	
-	public String classOfUser(Connection conn,String person_id) throws IOException, SQLException {
-		  
+
+	//public boolean createRadiologyAccount(Map<String, String>){
+	//}
+  
+	/*
+	 * Generates a new person_id following the personID_sequence.
+	 */
+	public String generateNextID(Connection conn) throws IOException, SQLException {
+	  
 		Statement stmt = null;
 	    ResultSet rset = null;
-		String sqlString = "SELECT class FROM users WHERE person_id = '"+person_id+"'";
+		String sqlString = "SELECT personID_sequence.nextval FROM DUAL";
 		try{
 		    stmt = conn.createStatement();
 		    rset = stmt.executeQuery(sqlString);
 		} catch(Exception ex) {
 		    throw new IOException("Could not get next value in sequence.");
+		
+		}
+		if ((rset != null) && rset.next()){
+			return rset.getString("NEXTVAL");
+		} else {
+			return "error";
+		}
+		
+	}
+	
+	public String classOfUser(Connection conn,String username) throws IOException, SQLException {
+		  
+		Statement stmt = null;
+	    ResultSet rset = null;
+		String sqlString = "SELECT class FROM users WHERE user_name = '"+username+"'";
+		try{
+		    stmt = conn.createStatement();
+		    rset = stmt.executeQuery(sqlString);
+		} catch(Exception ex) {
+		    throw new IOException("Could not find class with specified username.");
 		
 		}
 		if ((rset != null) && rset.next()){

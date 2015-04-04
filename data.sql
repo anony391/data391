@@ -20,4 +20,6 @@ INSERT INTO family_doctor (doctor_id, patient_id) VALUES (000000006,000000003);
 INSERT INTO family_doctor (doctor_id, patient_id) VALUES (000000006,000000004);
 INSERT INTO family_doctor (doctor_id, patient_id) VALUES (000000007,000000005);
 
+INSERT INTO radiology_record (record_id,patient_id,doctor_id, radiologist_id,test_type,prescribing_date, test_date,diagnosis,description) VALUES (654,1,6,5,'idk',to_date('1990-06-10', 'yyyy-mm-dd'),to_date('1990-06-20', 'yyyy-mm-dd'),'diabetes','mummybetes');
+INSERT INTO radiology_record (record_id,patient_id,doctor_id, radiologist_id,test_type,prescribing_date, test_date,diagnosis,description) VALUES (655,2,6,5,'whateva',to_date('2001-06-10', 'yyyy-mm-dd'),to_date('2001-06-20', 'yyyy-mm-dd'),'diabetes','mummybetes');
 

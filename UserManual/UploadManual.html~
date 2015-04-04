@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Uploading Manual</title>
+    <link rel="stylesheet" type="text/css" href="../RadiologyDatabase.css">
+</head>
+<body>
+<!--Navigation menu -->
+<div id="menu">
+    <ul>
+        <li><a href="../Home_Menu.jsp">Home Menu</a></li>
+        <li><a href="./UserManual.html">UserManual</a></li>
+        <li><a href="./LoginManual.html">Login Module</a></li>
+        <li><a href="./UserManagementManual.html">User Management Module</a></li>
+        <li><a href="./ReportManual.html">Report Generating Module</a></li>
+        <li><a href="./UploadManual.html">Uploading Module</a></li>
+        <li><a href="./SearchManual.html">Search Module</a></li>
+        <li><a href="./AnalysisManual.html">Data Analysis Module</a></li>
+    </ul>
+</div>
+
+<h2>Uploading Manual</h2>
+<p>This module will be used by radiologists to first enter a radiology record,
+    and then to upload medical images into the radiology record.
+    A radiology record can be created without uploading an image,
+    and additional images can be added later to a record.</p>
+<ol>
+    <h4>Create radiology record:</h4>
+    <li>Select “Create New Radiology Records” in home menu</li>
+    <li>Enter the ID of the patient</li>
+    <li>Enter the ID of the doctor in charge of the patient with ID entered in step 1</li>
+    <li>Enter the ID of the radiologist creating the record</li>
+    <li>Enter the test type</li>
+    <li>Enter the prescribing and test date</li>
+    <li>Enter the diagnosis and description of the diagnosis</li>
+    <li>Press “Choose Files” to upload images. You can choose not to upload any images.</li>
+    <li>Press “Submit” to create radiology record and/or upload an image</li>
+</ol>
+
+<ol>
+    <h4>Upload an image:</h4>
+    <li>Select “Upload Images to Record” in home menu</li>
+</ol>
+</body>
+</html>

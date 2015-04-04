@@ -89,3 +89,8 @@ start with 0000000001
 increment by 1
 minvalue 0000000001
 maxvalue 9999999999; 
+
+CREATE OR REPLACE VIEW analysis_view AS 
+SELECT p.first_name, p.last_name,r.test_type, r.test_date, i.image_id 
+FROM persons p, radiology_record r, pacs_images i 
+WHERE p.person_id=r.patient_id AND i.record_id=r.record_id;

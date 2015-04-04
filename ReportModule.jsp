@@ -1,0 +1,78 @@
+<HTML><BODY>
+<%@ page import="connectionmaker.*"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.*"%>
+<%@ page import="sqlcontrol.*"%>
+<%
+Connection conn = null;
+sqlcontroller sqlContrl = new sqlcontroller();
+if(request.getParameter("Submit") != null) {	//extracting updateuser info
+
+	try{
+		connmaker cn = new connmaker();
+		conn = cn.mkconn(); 	//creates a connection with database
+	
+
+	}
+	catch(Exception ex){
+	out.println("<hr>"+ ex.getMessage() + "<hr>");
+	}
+	Statement stmt = null;
+	ResultSet rset = null;
+
+	/*Get updated user info*/
+	String diagnosis = (request.getParameter("DIAGNOSIS").trim());
+	String yearStr = (request.getParameter("YEAR").trim());
+	int year = Integer.parseInt(yearStr);
+	
+    	String sqlString = "SELECT *"
+			+ " FROM (SELECT p.first_name,p.last_name,p.address,p.phone,r.test_date,ROW_NUMBER()"
+			+ " OVER (PARTITION BY p.person_id ORDER BY r.test_date) AS rownumber" 
+			+ " FROM persons p,radiology_record r WHERE p.person_id=r.patient_id"
+			+ " AND r.diagnosis='"+diagnosis+"'" 
+			+ " AND EXTRACT(YEAR FROM r.test_date)="+year+")"
+			+ " WHERE rownumber=1";
+
+	try {
+		stmt = conn.createStatement();
+		rset = stmt.executeQuery(sqlString);
+
+		//Print title column of table
+		out.println("<table style='width:50%'>");
+		out.println("<tr><th>First Name</th><th>Last Name</th><th>Address</th>");
+		out.println("<th>Phone</th><th>Test Date</th></tr>");
+
+		while(rset != null && rset.next()){
+
+			String first_name = rset.getString("first_name");
+			String last_name = rset.getString("last_name");
+			String address = rset.getString("address");
+			String phone = rset.getString("phone");
+			String test_date = rset.getString("test_date");
+
+			out.println("<tr><td>"+first_name+"</td><td>"+last_name+"</td><td>"+address+"</td>");
+			out.println("<td>"+phone+"</td><td>"+test_date+"</td></tr>");
+
+		}
+		out.println("</table>");
+	
+
+	}
+	catch(Exception ex){
+	    out.println("No patients found with specifed diagnosis at that time.");
+	    out.println("<hr>"+ ex.getMessage() +"<hr>");
+	    conn.close();
+	}
+	conn.close();
+
+	
+	out.println("<a href='./Home_Menu.jsp'>Return to menu</a>");
+	
+	
+} else { %>
+<%@ include file="ReportModule.html"%>
+<%}%>
+</BODY>
+</HTML>
+
