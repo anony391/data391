@@ -111,9 +111,9 @@ public class CreateNewRadiology extends HttpServlet {
 				BufferedImage thumbnail = shrink(reg_size, 5);
 				//Write the image to the outputstream as a picture
 				ByteArrayOutputStream thumbnail_outstream = new ByteArrayOutputStream();
-				ImageIO.write(thumbnail, "png", thumbnail_outstream);
+				ImageIO.write(thumbnail, "jpg", thumbnail_outstream);
 				ByteArrayOutputStream regular_outstream = new ByteArrayOutputStream();
-				ImageIO.write(reg_size, "png", regular_outstream);
+				ImageIO.write(reg_size, "jpg", regular_outstream);
 				// convert back to inputstream to be input
 				InputStream thumbnail_stream = new ByteArrayInputStream(thumbnail_outstream.toByteArray());
 				InputStream regular_stream = new ByteArrayInputStream(regular_outstream.toByteArray());
@@ -168,8 +168,8 @@ public class CreateNewRadiology extends HttpServlet {
 
 		//This creates a connection to database for insertion of picture
 	public Connection mkconn(){
-		String USER = ""; 	//Change these parameters when testing to your oracle password :)
-		String PASSWORD = "";
+		String USER = "rdejesus"; 	//Change these parameters when testing to your oracle password :)
+		String PASSWORD = "Ihateyou1";
 		Connection conn = null;
 		String driverName = "oracle.jdbc.driver.OracleDriver";
 		String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";

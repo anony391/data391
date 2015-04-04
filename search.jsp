@@ -18,11 +18,11 @@
 				out.println("<hr>"+ ex.getMessage() + "<hr>");
 	    		}
             PreparedStatement doSearch = m_con.prepareStatement("SELECT p.image_id, r.record_id, r.description, score(1) FROM radiology_record r ,pacs_images p WHERE p.record_id = r.record_id AND contains(description, ?, 1) > 0");
+
+
 			doSearch.setString(1, request.getParameter("query"));
 			ResultSet rset2 = doSearch.executeQuery();
-			String image_id = Integer.toString(rset.getInt(1));
-			String record_id = Integer.toString(rset.getInt(2));
-			String p_id = image_id+","+record_id;
+			String p_id = null;
 			out.println("<table border=1>");
 			out.println("<tr>");
 			out.println("<th>Item Name</th>");
@@ -30,15 +30,18 @@
 			out.println("<th>Score</th>");
 			out.println("</tr>");
 			while(rset2.next()) {
+				String image_id = Integer.toString(rset2.getInt(1));
+				String record_id = Integer.toString(rset2.getInt(2));
+				p_id = image_id+","+record_id;
 		        	out.println("<tr>");
 		        	out.println("<td>"); 
-			       	out.println(rset2.getInt(2));
+			       	out.println(image_id);
 				out.println("</td>");
 				out.println("<td>"); 
-				out.println(rset2.getString(3)); 
+				out.println(record_id); 
 				out.println("</td>");
 				out.println("<td>");
-					out.println("<img src=\"/servlet/GetOnePic?"+p_id+"\">");
+					out.println("<img src=\"/data391/servlet/GetOnePic?"+p_id+"\">");
 				out.println("</td>");
 				out.println("</tr>");
 		      	} 

@@ -1,4 +1,5 @@
-<%@ page import="java.sql.*, java.util.*" %>
+<%@ page import="java.sql.*" %>
+<%@ page import="connectionmaker.*"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -12,7 +13,28 @@
           <td><input type=submit value="Search" name="search"></td>
         </tr>
       </table>
-      <%
+
+              Query the database to see relevant items
+      <table>
+        <tr>
+          <td>
+            <input type=text name=query>
+          </td>
+          <td>
+            <input type=submit value="Search" name="search">
+          </td>
+        </tr>
+      </table>
+      <% Connection m_con = null;
+
+	connmaker cn = null;
+	try{
+	cn = new connmaker();
+        m_con = cn.mkconn(); 	//creates a connection with database by using connectionmaker class
+    }
+    catch(Exception ex){
+        out.println("<hr>"+ ex.getMessage() + "<hr>");
+    }
         
           if (request.getParameter("search") != null)
           {
@@ -23,7 +45,7 @@
           
             if(!(request.getParameter("query").equals("")))
             {
-              PreparedStatement doSearch = m_con.prepareStatement("SELECT score(1), itemName, description FROM item WHERE contains(description, ?, 1) > 0 order by score(1) desc");
+              PreparedStatement doSearch = m_con.prepareStatement("SELECT score(1), record_id, description FROM radiology_record WHERE contains(description, ?, 1) > 0");
               doSearch.setString(1, request.getParameter("query"));
               ResultSet rset2 = doSearch.executeQuery();
               out.println("<table border=1>");
@@ -36,13 +58,17 @@
               {
                 out.println("<tr>");
                 out.println("<td>"); 
-                out.println(rset2.getString(2));
+                out.println(rset2.getInt(2));
                 out.println("</td>");
                 out.println("<td>"); 
                 out.println(rset2.getString(3)); 
                 out.println("</td>");
                 out.println("<td>");
-                out.println(rset2.getObject(1));
+		ByteArrayOutputStream thumbnail_outstream = new ByteArrayOutputStream();
+		ImageIO.write(rset2.getBLOB(1), "png", thumbnail_outstream);
+		BufferedImage img = ImageIO.read(new ByteArrayInputStream(data));
+
+                out.println(<img src= img);
                 out.println("</td>");
                 out.println("</tr>");
               } 
