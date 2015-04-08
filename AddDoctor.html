@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>User Management</title>
+    <link rel="stylesheet" type="text/css" href="RadiologyDatabase.css">
+</head>
+
+<body>
+<FORM NAME="UserManagement" ACTION="AddDoctor.jsp" METHOD="post" autocomplete="off">
+
+    <h2>Add a family doctor to the specified person</h2>
+    <TABLE>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Person ID:</B></TD>
+            <TD><INPUT TYPE="text" NAME="PERSONID"><BR></TD>
+        </TR>
+        <TR VALIGN=TOP ALIGN=RIGHT>
+            <TD><B>Family Doctor:</B></TD>
+            <TD><INPUT TYPE="text" NAME="DOCTOR"><BR></TD>
+        </TR>
+    </TABLE>
+
+    <INPUT TYPE="submit" NAME="Submit" VALUE="SUBMIT">
+</FORM>
