@@ -11,7 +11,6 @@ WHERE p.person_id=r.patient_id AND i.record_id=r.record_id;
 
 CREATE INDEX search ON radiology_record(diagnosis) INDEXTYPE IS CTXSYS.CONTEXT;
 
-Index created.
 
 CREATE INDEX search1 ON radiology_record(description) INDEXTYPE IS CTXSYS.CONTEXT;
 

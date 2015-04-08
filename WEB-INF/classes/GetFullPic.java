@@ -35,8 +35,8 @@ public class GetFullPic extends HttpServlet
 		      HttpServletResponse response)
 	throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		if (session == null) {
-	    		response.sendRedirect("Home_Menu.jsp");
+		if (session.getAttribute("login_class") == null) {
+	    		response.sendRedirect("/data391/Home_Menu.jsp");
 		}
 		//  construct the query  from the client's QueryString
 		String req  = request.getQueryString();
