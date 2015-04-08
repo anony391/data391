@@ -69,7 +69,6 @@ if(request.getParameter("Submit") != null) {	//extracting logininfo
     ResultSet rset = null;
 
     try{
-	out.println(sqlString);
         stmt = conn.createStatement();
         rset = stmt.executeQuery(sqlString);
 
