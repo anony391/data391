@@ -98,12 +98,8 @@
 					p_id = image_id+","+record_id;
 					out.println("<tr>");
 					out.println("<td>"); 
-					out.println("<a href=\"/data391/servlet/GetBigPic?"+p_id+"\">");			//to access images
+					out.println("<a href=zoom.jsp?"+p_id+">");			//to access images
 					out.println("<img src=\"/data391/servlet/GetOnePic?"+p_id+"\"></a>");
-					out.println("</td>");
-					out.println("<td>"); 
-					out.println("<a href=\"/data391/servlet/GetFullPic?"+p_id+"\">");
-					out.println("FullSize</a>");
 					out.println("</td>");
 					out.println("</tr>"); 
 				}
