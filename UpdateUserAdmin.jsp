@@ -12,7 +12,7 @@ if(request.getParameter("Submit") != null) {	//extracting person id
         conn = cn.mkconn(); 	//creates a connection with database
 	Statement stmt = null;
 	ResultSet rset = null;
-	String sqlstring = "SELECT * FROM users u,persons p,family_doctor d WHERE p.person_id = u.person_id AND p.person_id = d.patient_id AND u.user_name='"+userName+"'";
+	String sqlstring = "SELECT * FROM users u,persons p WHERE p.person_id = u.person_id AND u.user_name='" +userName+ "'";
 
         stmt = conn.createStatement();
         rset = stmt.executeQuery(sqlstring);
@@ -32,7 +32,15 @@ if(request.getParameter("Submit") != null) {	//extracting person id
 		String email = rset.getString("email").trim();
 		String phone = rset.getString("phone").trim();
 		String classType = rset.getString("class").trim();
-		String doctor = rset.getString("doctor_id").trim();
+
+		String doctor = "";
+		ResultSet rset2 = null;
+		String sqlstring2 = "SELECT doctor_id from family_doctor WHERE patient_id ='" +person_id+ "'";
+		Statement stmt2 = conn.createStatement();
+		rset2 = stmt2.executeQuery(sqlstring2);
+		if (rset2 != null && rset2.next()){  
+			doctor = rset2.getString("doctor_id").trim();
+		}
 
 		/*Print out update form with filled in fields*/
 		out.println("<form method=post action=UserManagement.jsp>");

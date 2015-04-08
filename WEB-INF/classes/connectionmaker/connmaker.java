@@ -17,7 +17,7 @@ public class connmaker{
       Class drvClass = Class.forName(driverName);
       DriverManager.registerDriver((Driver) drvClass.newInstance());
       conn = DriverManager.getConnection(dbstring, USER, PASSWORD); 
-      conn.setAutoCommit(false);
+      conn.setAutoCommit(true);
       return conn;
     }
     catch(Exception ex){
